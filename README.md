@@ -11,6 +11,12 @@ http://nodejs.cn/download/
 ```shell
 git clone git@gitee.com:always-make-trouble/oak-fe.git
 ```
+### 启动项目
+```shell
+cd oak-fe        //进入项目目录
+npm i            //安装依赖
+npm start        //启动本地开发服务器
+```
 ### 开发
 拉取仓库后，检查是否在dev分支。
 
@@ -40,5 +46,47 @@ push前先fetch，保证dev分支处于最新状态。然后checkout到dev，mer
 **运行时依赖**
 antd 组件库
 axios 用于发送网络请求
+
 **开发时依赖**
 sass 可以嵌套写样式
+
+# 规范
+参考就行，不要求一定要。
+## 文件夹/文件命名
+参考当前项目已有的。
+## commit规范
+
+注意: 用英文字符，:号后面空一格
+
+commit规范
+
+```shell
+<type>: <subject> #subject 必填，简单说明，不超过50个字
+#空一行
+[optional body] # body 选填，用于填写更详细的描述
+```
+
+type是提交的类型，必须为以下类型中一个
+
+```
+feat：增加一个新功能
+fix：修复bug
+docs：只修改了文档
+style：做了不影响代码含义的修改，空格、格式化、缺少分号等等
+refactor：代码重构，既不是修复bug，也不是新功能的修改
+perf：改进性能的代码
+test：增加测试或更新已有的测试
+chore：构建或辅助工具或依赖库的更新
+```
+
+提交示例
+
+```
+feat: 新建xx页面
+
+初步完成xx组件
+```
+**参考网址**
+https://jelly.jd.com/article/5f51aa34da524a0147e9529d
+
+# 参考资料
