@@ -1,9 +1,9 @@
-
+import RouterIndex from "./RouterIndex";
 
 function App() {
   return (
     <div className="App">
-      App
+      <RouterIndex />
     </div>
   );
 }
