@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# 开发指南
+## 开始
+### 安装git
+b站随便找个视频跟着装，要学会基本的使用。
+git 安装在默认地址，不要改。否则VSCode识别会出现问题。
+### 搭建node.js环境
+http://nodejs.cn/download/
+安装最新版即可。
+### 克隆
+先找谢畅要权限，注册gitee，拉成员。
+```shell
+git clone git@gitee.com:always-make-trouble/oak-fe.git
+```
+### 开发
+拉取仓库后，检查是否在dev分支。
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+从dev分支中新建一个本地开发分支，进行开发。
 
-## Available Scripts
+push前先fetch，保证dev分支处于最新状态。然后checkout到dev，merge本地开发分支，若发生冲突需要先解决冲突，后push。
+### 目录结构
+```
+.
+|-- README.md
+|-- package-lock.json     //锁定版本
+|-- package.json          //锁定版本
+|-- public                //不用碰这个文件夹
+|   `-- index.html        
+`-- src
+    |-- App.js            //根组件
+    |-- index.css         //全局样式
+    |-- index.js          //入口文件
+    `-- views             //主要在这里面写
+```
+### 其他
+需要的依赖都安装好了，路由也建好了。不太懂可以参考我写的页面做，虽然我也是新手= =。
 
-In the project directory, you can run:
+先做页面样式，后添加交互，网络请求等。所以就先画页面吧。
 
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## 引入的库
+**运行时依赖**
+antd 组件库
+axios 用于发送网络请求
+**开发时依赖**
+sass 可以嵌套写样式
