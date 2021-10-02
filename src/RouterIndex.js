@@ -1,5 +1,5 @@
 import React from "react";
-import {HashRouter,Redirect,Route,Switch,useLocation } from 'react-router-dom'
+import {HashRouter,Redirect,Route,Switch } from 'react-router-dom'
 import CreateProject from "./views/CreateProject/CreateProject";
 import CreateTeam from "./views/CreatTeam/CreateTeam";
 import Login from "./views/Login/Login";
@@ -11,7 +11,7 @@ export default function RouterIndex() {
       <Switch>
         {
           localStorage.getItem("token")?(
-            <>
+            <Switch>
               <Route path="/CreateTeam">
                 <CreateTeam/>
               </Route>
@@ -22,7 +22,7 @@ export default function RouterIndex() {
                 <PageFrame/>
               </Route>
               <Redirect to="/" />
-            </>):
+            </Switch>):
               <Route path="/Login">
                 <Login/>
               </Route>

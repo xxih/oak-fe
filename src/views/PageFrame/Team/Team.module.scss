@@ -1,0 +1,67 @@
+.container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.box{
+  // border: 1px solid #ddd;
+  width: 770px;
+  height: 480px;
+  margin-top: 40px;
+  border-radius: 20px;
+  box-shadow: rgb(230, 232, 236) 0 0 10px;
+}
+.header{
+  display: flex;
+  align-items: center;
+  // border-bottom: 1px solid rgb(230, 230, 230);
+  .btn {
+    margin-top: 35px;
+    margin-left: 40px;
+    padding: 0 10px;
+    border-radius: 10px;
+    height: 35px;
+    background-color: rgb(180, 202, 235);
+    line-height: 35px;
+    color: white;
+    cursor: pointer;
+  }
+}
+.bar{
+  // margin-top: 10px;
+  margin: 20px 40px 10px;
+  display: flex;
+  align-items: center;
+  height: 70px;
+  border-bottom: 1px solid rgb(230, 230, 230);
+  .groupName{
+    // margin-left: 35px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .inviteBtn{
+    justify-self:center;
+  }
+}
+
+.list{
+
+  .item{
+    margin: 0 20px;
+    display: flex;
+    align-items: center;
+    // background-color: #cde;
+    padding: 10px;
+    .icon{
+      margin-left: 20px;
+    }
+    .name{
+      margin-left: 20px;
+      font-size: large;
+    }
+    .tag{
+      margin-left: 20px;
+    }
+  }
+}

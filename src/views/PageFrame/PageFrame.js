@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {Route,Switch,useHistory} from 'react-router-dom'
+import {Route,Switch,useHistory,useLocation,Redirect} from 'react-router-dom'
 import { Menu,Layout,Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 import style from './PageFrame.module.scss'
@@ -9,8 +9,8 @@ import Mine from './Mine/Mine.js'
 const { Header, Content,Footer  } = Layout;
 
 export default function PageFrame() {
-  const [current, setCurrent] = useState("Project")
   const history = useHistory()
+  const location = useLocation()
 
   const menu = (
     <Menu>
@@ -37,49 +37,46 @@ export default function PageFrame() {
     </Menu>
   );
   function handleClick(e){
-    setCurrent(e.key)
     history.push(e.key)
+    console.log(location);
   }
   return (
     <Layout className={style.layout}>
       <Header className={style.header}>
         <Dropdown overlay={menu} className={style.team}>
-          <a onClick={e => e.preventDefault()}>
-            CV小组
+          <a  href=" " onClick={e => e.preventDefault()}>
+            CV小队
             <DownOutlined />
           </a>
         </Dropdown>
         <Menu 
         onClick={handleClick} 
-        selectedKeys={current} 
+        selectedKeys={location.pathname} 
         mode="horizontal" 
         className={style.menu}
         >
-          <Menu.Item key="Project">
+          <Menu.Item key="/Project">
             项目
           </Menu.Item>
-          <Menu.Item key="Team" >
+          <Menu.Item key="/Team" >
             团队
           </Menu.Item>
-          <Menu.Item key="Mine">
+          <Menu.Item key="/Mine">
             我自己
           </Menu.Item>
         </Menu>
       </Header>
       <Content className={style.content}>
         <Switch>
-          <Route exact path="/">
-            <Project></Project>
-          </Route>
           <Route path="/Project">
             <Project></Project>
           </Route>
           <Route path="/Team">
             <Team></Team>
           </Route>
-          <Route path="/Mine">
-            <Mine></Mine>
+          <Route path="/Mine" component={Mine}>
           </Route>
+          <Redirect from="/" to="/Project" exact />
         </Switch>
       </Content>
       <Footer className={style.footer}>Oak ©2021 Created by CV-G</Footer>
