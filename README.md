@@ -18,6 +18,12 @@ npm i            //安装依赖
 npm start        //启动本地开发服务器
 ```
 **tips**
+npm i 默认是国外的地址，速度慢，可以设置为淘宝镜像地址。
+`
+npm config set registry http://registry.npm.taobao.org/
+`
+设置完再安装速度就很快了。
+
 为了模拟未登录的情况，我做了一个判断，如果本地没有缓存“token”，就无法进入主页面，只能看到Login页面。
 
 想要进入主页面，需要在浏览器中 `f12` 打开开发者面板，在 console 控制台中输入指令`localStorage.setItem('token','xx')`，再刷新页面即可
