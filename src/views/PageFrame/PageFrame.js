@@ -5,7 +5,7 @@ import style from './PageFrame.module.scss'
 import Project from './Project/Project.js'
 import Team from './Team/Team.js'
 import Mine from './Mine/Mine.js'
-const { Header, Content  } = Layout;
+const { Header, Content,Footer  } = Layout;
 
 export default function PageFrame() {
   const [current, setCurrent] = useState("Project")
@@ -15,7 +15,7 @@ export default function PageFrame() {
     history.push(e.key)
   }
   return (
-    <Layout className="layout">
+    <Layout className={style.layout}>
       <Header className={style.header}>
         <div className={style.team}>cv小队</div>   
         <Menu 
@@ -35,7 +35,7 @@ export default function PageFrame() {
           </Menu.Item>
         </Menu>
       </Header>
-      <Content>
+      <Content className={style.content}>
         <Switch>
           <Route exact path="/">
             <Project></Project>
@@ -51,6 +51,7 @@ export default function PageFrame() {
           </Route>
         </Switch>
       </Content>
+      <Footer className={style.footer}>Oak ©2021 Created by CV-G</Footer>
     </Layout>
   )
 }

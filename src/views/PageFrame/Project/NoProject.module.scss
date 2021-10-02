@@ -1,0 +1,29 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .smallText{
+    margin-top: 70px;
+    font-size: 15px;
+  }
+  .bigText{
+    font-size: 25px;
+    margin-top: 25px;
+  }
+  .btn{
+    padding: 20px;
+    border-radius: 20px;
+    margin-top: 40px;
+    cursor: pointer;
+    .icon{
+      font-size: 70px;
+      color: rgb(226, 226, 226);
+    }
+    .tips{
+      margin-top: 10px;
+    }
+  }
+}
+.btn:hover{
+  background-color: rgba(240, 240, 240, 0.63);
+}

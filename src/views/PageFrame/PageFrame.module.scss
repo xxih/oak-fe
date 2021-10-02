@@ -1,3 +1,6 @@
+.layout{
+  background-color: #fff;
+}
 .header{
   display: flex;
   justify-content: center;
@@ -16,4 +19,13 @@
       margin: 0 30px;
     }
   }
+}
+.content{
+  background-color: #fff;
+}
+.footer{
+  margin-top: 10px;
+  background-color: #fff;
+  text-align: center;
+  color: rgb(207, 213, 218);
 }

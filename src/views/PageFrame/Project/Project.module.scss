@@ -1,0 +1,14 @@
+.container{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.box{
+  // border: 1px solid #ddd;
+  width: 770px;
+  height: 480px;
+  margin-top: 40px;
+  border-radius: 20px;
+  box-shadow: rgb(230, 232, 236) 0 0 10px;
+}
