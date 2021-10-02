@@ -9,9 +9,6 @@ export default function RouterIndex() {
   return (
     <HashRouter>
       <Switch>
-        <Route path="/Login">
-          <Login/>
-        </Route>
         {
           localStorage.getItem("token")?(
             <>
@@ -24,8 +21,13 @@ export default function RouterIndex() {
               <Route path="/">
                 <PageFrame/>
               </Route>
-            </>):<Redirect to="Login"/>
+              <Redirect to="/" />
+            </>):
+              <Route path="/Login">
+                <Login/>
+              </Route>
         }
+
       </Switch>
     </HashRouter>
   )
