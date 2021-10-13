@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {Route,Switch,useHistory,useLocation,Redirect} from 'react-router-dom'
 import { Menu,Layout,Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
@@ -76,7 +76,7 @@ export default function PageFrame() {
           </Route>
           <Route path="/Mine" component={Mine}>
           </Route>
-          <Redirect from="/" to="/Project" exact />
+          <Redirect to="/Project" />
         </Switch>
       </Content>
       <Footer className={style.footer}>Oak ©2021 Created by CV-G</Footer>

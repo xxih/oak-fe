@@ -8,8 +8,7 @@ import PageFrame from "./views/PageFrame/PageFrame";
 export default function RouterIndex() {
   return (
     <HashRouter>
-      <Switch>
-        {
+      {/* {
           localStorage.getItem("token")?(
             <Switch>
               <Route path="/CreateTeam">
@@ -23,11 +22,28 @@ export default function RouterIndex() {
               </Route>
               <Redirect to="/" />
             </Switch>):
+            <Switch>
               <Route path="/Login">
                 <Login/>
               </Route>
-        }
-
+              <Redirect to="/Login" ></Redirect>
+            </Switch>
+        } */}
+      <Switch>
+        <Route path="/CreateTeam">
+          <CreateTeam/>
+        </Route>
+        <Route path="/CreateProject">
+          <CreateProject/>
+        </Route>
+        <Route path="/Login">
+          <Login/>
+        </Route>
+        <Route path="/">
+          {localStorage.getItem("token")?
+          <PageFrame></PageFrame>:
+          <Redirect to="/Login"/>}
+        </Route>
       </Switch>
     </HashRouter>
   )
