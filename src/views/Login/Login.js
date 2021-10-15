@@ -1,12 +1,11 @@
 import { Form, Input, Button, Space } from 'antd';
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory} from 'react-router-dom'
 import style from './Login.module.scss'
 import api from '@/utils/api'
 
 export default function Login() {
   const [form] = Form.useForm()
   let history = useHistory()
-  let location = useLocation()
 
   const onLogin = () => {
     let {oakCode,teamName,password} = form.getFieldValue()
@@ -16,15 +15,17 @@ export default function Login() {
       password
     })
     res.then((res)=>{
-      console.log(res);
-      localStorage.setItem('token',res.data.token)
-      localStorage.setItem('token',res.data.token)
-    })
-    .then(()=>{
-      // history.push('/Project')
-    })
-    .catch((err)=>{
-      console.log(err);
+      localStorage.setItem('token',res.token)
+      localStorage.setItem('oakCode',oakCode)
+      localStorage.setItem('selectedTeam',teamName)
+      let mySelf = res.member.find((item)=>{
+        return item.OakCode===parseInt(oakCode)
+      })
+      // console.log(mySelf);
+      localStorage.setItem('avatar',mySelf.avatar)
+      localStorage.setItem('name',mySelf.name)
+      localStorage.setItem('duty',mySelf.Duty)
+      history.push('/Project')
     })
   };
 
@@ -37,8 +38,7 @@ export default function Login() {
     })
     res.then((res)=>{
       console.log(res);
-    })
-    .catch((err)=>{
+    },err=>{
       console.log(err);
     })
   };

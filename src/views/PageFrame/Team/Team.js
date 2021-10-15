@@ -2,8 +2,10 @@ import React from 'react'
 import style from './Team.module.scss'
 import { Avatar,Tag } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
 export default function Team() {
+  let selectedTeam = useSelector(state=>state.selectedTeam)
   return (
     <div className={style.container}>
       <div className={style.box}>
@@ -11,7 +13,7 @@ export default function Team() {
           <div className={style.btn}>所有成员</div>
         </div>
         <div className={style.bar}>
-          <div className={style.groupName}>CV小队</div>
+          <div className={style.groupName}>{selectedTeam}</div>
           <div className={style.num}>（共1人）</div>
           <div className={style.inviteBtn}>邀请新成员</div>
         </div>

@@ -11,6 +11,9 @@
     margin-top: 25px;
   }
   .btn{
+    &:hover{
+      background-color: rgba(240, 240, 240, 0.63);
+    }
     padding: 20px;
     border-radius: 20px;
     margin-top: 40px;
@@ -23,7 +26,4 @@
       margin-top: 10px;
     }
   }
-}
-.btn:hover{
-  background-color: rgba(240, 240, 240, 0.63);
 }

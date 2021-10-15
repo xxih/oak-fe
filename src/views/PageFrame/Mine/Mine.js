@@ -8,9 +8,9 @@ export default function Mine() {
   <div className={style.container}>
     <div className={style.box}>
       <div className={style.header}>
-        <Avatar size={100} icon={<UserOutlined />}></Avatar>
+        <Avatar size={100} src={localStorage.avatar}></Avatar>
         <div className={style.column}>
-          <div className={style.text}>臭宝</div>
+          <div className={style.text}>{localStorage.name}</div>
         </div>
       </div>
       <div className={style.bar}>

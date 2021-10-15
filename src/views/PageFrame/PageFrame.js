@@ -1,56 +1,90 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {Route,Switch,useHistory,useLocation,Redirect} from 'react-router-dom'
-import { Menu,Layout,Dropdown } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Menu,Layout,Dropdown,Avatar  } from 'antd';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { switchTeamAction } from '@/redux';
+
+
 import style from './PageFrame.module.scss'
 import Project from './Project/Project.js'
 import Team from './Team/Team.js'
 import Mine from './Mine/Mine.js'
+import api from '@/utils/api'
 const { Header, Content,Footer  } = Layout;
 
 export default function PageFrame() {
+
   const history = useHistory()
   const location = useLocation()
+  const dispatch = useDispatch()
+  let selectedTeam = useSelector(state=>state.selectedTeam)
+  const [team, setTeam] = useState([])
+  useEffect(() => {
+    dispatch(switchTeamAction(localStorage.getItem('selectedTeam')))
+    let res = api.getTeam({
+      token:localStorage.getItem('token'),
+      oakCode:localStorage.getItem('oakCode')
+    });
+    res.then((data)=>{
+      setTeam(data.team)
+    })
+  }, [])
 
+  function switchTeam(item){
+    dispatch(switchTeamAction(item.key))
+  }
   const menu = (
     <Menu>
       <Menu.ItemGroup title={`切换团队`} style={{width:150}}>
         <Menu.Divider />
-        <Menu.Item key="0">
-          <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-            团队一
-          </a>
-        </Menu.Item>
-        <Menu.Item key="1">
-          <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-            团队二
-          </a>
-        </Menu.Item>
-        <Menu.Item key="3">
-          团队三
-        </Menu.Item>
+        {
+          team.map((item)=>{
+            return (<
+              Menu.Item key={item}
+              onClick={switchTeam}
+            >
+                <div>
+                  {item}
+                </div>
+              </Menu.Item>)
+          })
+        }
       </Menu.ItemGroup>
       <Menu.Divider />
-      <Menu.Item key="4">
+      <Menu.Item key="createNewTeam">
           新建团队
       </Menu.Item>
     </Menu>
   );
-  function handleClick(e){
+
+  const logOutMenu = (
+    <Menu>
+      <Menu.Item onClick={logOut} key="logout">
+        退出登录
+      </Menu.Item>
+    </Menu>
+  )
+
+  function logOut(){
+    localStorage.clear()
+    history.push('/Login')
+  }
+
+  function switchMenu(e){
     history.push(e.key)
-    console.log(location);
   }
   return (
     <Layout className={style.layout}>
       <Header className={style.header}>
         <Dropdown overlay={menu} className={style.team}>
           <a  href=" " onClick={e => e.preventDefault()}>
-            CV小队
+            {selectedTeam}
             <DownOutlined />
           </a>
         </Dropdown>
         <Menu 
-        onClick={handleClick} 
+        onClick={switchMenu} 
         selectedKeys={location.pathname} 
         mode="horizontal" 
         className={style.menu}
@@ -65,6 +99,13 @@ export default function PageFrame() {
             我自己
           </Menu.Item>
         </Menu>
+        <Dropdown overlay={logOutMenu} className={style.avatar}>
+          <Avatar  size="large"
+          //  icon={<UserOutlined />} 
+            src={localStorage.avatar}
+            style={{cursor:"pointer",marginTop:"10px"}}
+          />
+        </Dropdown>
       </Header>
       <Content className={style.content}>
         <Switch>
