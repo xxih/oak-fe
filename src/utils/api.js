@@ -62,6 +62,12 @@ const api = {
     .then(res=>{
       return Promise.resolve(res.data)
     })
+  },
+  async createMission(params){
+    return axios.post('/createMission/',params)
+    .then((res)=>{
+      return Promise.resolve(res.data)
+    })
   }
 }
 

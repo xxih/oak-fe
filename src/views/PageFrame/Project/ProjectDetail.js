@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { Redirect, Route, Switch, useParams } from 'react-router'
-import { Avatar } from 'antd';
+import { Redirect, Route, Switch, useLocation, useParams } from 'react-router'
+// import { Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 
 import api from '@/utils/api'
@@ -9,37 +9,37 @@ import { useSelector } from 'react-redux'
 import ItemTable from './components/ItemTable';
 
 export default function ProjectDetail() {
+  let location = useLocation()
   let selectedTeam =  useSelector(state=>state.selectedTeam)
   const {id, name} = useParams()
-  const [member, setMember] = useState([])
-  useEffect(() => {
-    api.getMembers({
-      token:localStorage.getItem('token'),
-      teamName:selectedTeam,
-    })
-    .then((res)=>{
-      setMember(res.member)
-    })
-  }, [])
+  // const [member, setMember] = useState([])
+  // useEffect(() => {
+  //   api.getMembers({
+  //     token:localStorage.getItem('token'),
+  //     teamName:selectedTeam,
+  //   })
+  //   .then((res)=>{
+  //     setMember(res.member)
+  //   })
+  // }, [])
   return (
     <>
       <div className={style.header}>
         <div className={style.left}>
           <div className={style.teamName}>{name}</div>
           <div className={style.menu}>
-            <Link className={style.menuItem}>列表</Link>
-            <Link className={style.menuItem}>进展</Link>
-            <Link className={style.menuItem}>公告</Link>
+            <Link className={style.menuItem} to={location.pathname+'/list'}>列表</Link>
+            <Link className={style.menuItem} to={location.pathname+'/list'}>进展</Link>
+            <Link className={style.menuItem} to={location.pathname+'/list'}>公告</Link>
           </div>
         </div>
       </div>
       <div className={style.content}>
         <Switch>
-          <Route path='/list'>
+          <Route path={'/ProjectDetail/'+id+'/'+name+'/list'}>
             <ItemTable/>
           </Route>
-          <Redirect to='/list'/>
-          
+          <Redirect to={'/ProjectDetail/'+id+'/'+name+'/list'}/>
         </Switch>
       </div>
     </>
