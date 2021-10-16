@@ -1,11 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React from 'react'
 import { Layout, Button, Input, Form } from 'antd';
 import style from './CreateProject.module.scss'
 import {  CompressOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
 import api from '@/utils/api'
-// const { Header, Content, Footer } = Layout;
 
 
 export default function CreateProject() {

@@ -52,7 +52,13 @@ const api = {
     })
   },
   async getProject(params){
-    return axios.get('/getProject',{params})
+    return axios.get('/getProject/',{params})
+    .then(res=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  async getMembers(params){
+    return axios.get('/getMembers/',{params})
     .then(res=>{
       return Promise.resolve(res.data)
     })

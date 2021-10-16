@@ -1,0 +1,23 @@
+.header{
+  display: flex;
+  justify-content: space-between;
+  
+  .left{
+    display: flex;
+    flex-direction: column;
+    margin-left: 40px;
+    .teamName{
+      font-size: 20px;
+    }
+    .menu{
+      margin-top: 10px;
+      .menuItem{
+        margin-right: 20px;
+      }
+    }
+  }
+  .right{
+    display: flex;
+
+  }
+}

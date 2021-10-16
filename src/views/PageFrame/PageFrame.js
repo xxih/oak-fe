@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Route,Switch,useHistory,useLocation,Redirect} from 'react-router-dom'
 import { Menu,Layout,Dropdown,Avatar  } from 'antd';
-import { DownOutlined, UserOutlined } from '@ant-design/icons';
+import { DownOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { switchTeamAction } from '@/redux';
 
@@ -10,6 +10,7 @@ import style from './PageFrame.module.scss'
 import Project from './Project/Project.js'
 import Team from './Team/Team.js'
 import Mine from './Mine/Mine.js'
+import ProjectDetail from './Project/ProjectDetail';
 import api from '@/utils/api'
 const { Header, Content,Footer  } = Layout;
 
@@ -21,7 +22,9 @@ export default function PageFrame() {
   let selectedTeam = useSelector(state=>state.selectedTeam)
   const [team, setTeam] = useState([])
   useEffect(() => {
-    dispatch(switchTeamAction(localStorage.getItem('selectedTeam')))
+    if(selectedTeam===''){
+      dispatch(switchTeamAction(localStorage.getItem('selectedTeam')))
+    }
     let res = api.getTeam({
       token:localStorage.getItem('token'),
       oakCode:localStorage.getItem('oakCode')
@@ -52,7 +55,11 @@ export default function PageFrame() {
         }
       </Menu.ItemGroup>
       <Menu.Divider />
-      <Menu.Item key="createNewTeam">
+      <Menu.Item 
+        key="createNewTeam"
+        onClick  
+      >
+
           新建团队
       </Menu.Item>
     </Menu>
@@ -107,6 +114,7 @@ export default function PageFrame() {
           />
         </Dropdown>
       </Header>
+
       <Content className={style.content}>
         <Switch>
           <Route path="/Project">
@@ -115,7 +123,11 @@ export default function PageFrame() {
           <Route path="/Team">
             <Team></Team>
           </Route>
-          <Route path="/Mine" component={Mine}>
+          <Route path="/Mine">
+            <Mine></Mine>
+          </Route>
+          <Route path="/ProjectDetail/:id/:name">
+            <ProjectDetail></ProjectDetail>
           </Route>
           <Redirect to="/Project" />
         </Switch>
