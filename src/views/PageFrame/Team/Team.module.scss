@@ -41,7 +41,7 @@
     font-weight: bold;
   }
   .inviteBtn{
-    justify-self:center;
+    margin-left: auto;
   }
 }
 
@@ -63,5 +63,15 @@
     .tag{
       margin-left: 20px;
     }
+  }
+}
+
+.modal{
+  width: 100px;
+  .modalTitle{
+    font-size: 23px;
+  }
+  .form{
+    margin-top: 28px;
   }
 }

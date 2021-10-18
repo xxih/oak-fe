@@ -74,7 +74,20 @@ const api = {
     .then((res)=>{
       return Promise.resolve(res.data)
     })
+  },
+  async inviteMember(params){
+    return axios.post('/inviteMember/',params)
+    .then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  async getPersonalMission(params){
+    return axios.get('/getPersonalMission/',{params})
+    .then((res)=>{
+      return Promise.resolve(res.data)
+    })
   }
+
 }
 
 export default api
