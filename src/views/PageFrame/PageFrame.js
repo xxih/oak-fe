@@ -36,6 +36,7 @@ export default function PageFrame() {
 
   function switchTeam(item){
     dispatch(switchTeamAction(item.key))
+    localStorage.setItem('selectedTeam',item.key)
     history.push('/Project')
   }
   const menu = (

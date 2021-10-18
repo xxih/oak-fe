@@ -100,3 +100,7 @@ feat: 新建xx页面
 https://jelly.jd.com/article/5f51aa34da524a0147e9529d
 
 # 参考资料
+
+# bug记录
+## 1 刷新bug
+在项目详情里刷新页面后左上角会变

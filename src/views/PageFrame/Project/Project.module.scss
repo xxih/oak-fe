@@ -27,6 +27,7 @@
     cursor: pointer;
     height: fit-content;
     margin-left: 24px;
+    width: 114px;
     &:hover{
       background-color: rgba(240, 240, 240, 0.63);
     }
@@ -37,6 +38,9 @@
     }
     .tips{
       margin-top: 10px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

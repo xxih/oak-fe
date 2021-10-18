@@ -28,18 +28,18 @@ export default function ProjectDetail() {
         <div className={style.left}>
           <div className={style.teamName}>{name}</div>
           <div className={style.menu}>
-            <Link className={style.menuItem} to={location.pathname+'/list'}>列表</Link>
-            <Link className={style.menuItem} to={location.pathname+'/list'}>进展</Link>
-            <Link className={style.menuItem} to={location.pathname+'/list'}>公告</Link>
+            <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/list`}>列表</Link>
+            <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/list`}>进展</Link>
+            <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/list`}>公告</Link>
           </div>
         </div>
       </div>
       <div className={style.content}>
         <Switch>
-          <Route path={'/ProjectDetail/'+id+'/'+name+'/list'}>
+          <Route path={'/ProjectDetail/:id/:name/list'}>
             <ItemTable/>
           </Route>
-          <Redirect to={'/ProjectDetail/'+id+'/'+name+'/list'}/>
+          <Redirect to={'/ProjectDetail/:id/:name/list'}/>
         </Switch>
       </div>
     </>
