@@ -7,6 +7,8 @@ import api from '@/utils/api'
 import style from './ProjectDetail.module.scss'
 import { useSelector } from 'react-redux'
 import ItemTable from './components/ItemTable';
+import Progress from './components/Progress';
+import Notice from './components/Notice';
 
 export default function ProjectDetail() {
   let location = useLocation()
@@ -29,8 +31,8 @@ export default function ProjectDetail() {
           <div className={style.teamName}>{name}</div>
           <div className={style.menu}>
             <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/list`}>列表</Link>
-            <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/list`}>进展</Link>
-            <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/list`}>公告</Link>
+            <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/progress`}>进展</Link>
+            <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/notice`}>公告</Link>
           </div>
         </div>
       </div>
@@ -39,7 +41,13 @@ export default function ProjectDetail() {
           <Route path={'/ProjectDetail/:id/:name/list'}>
             <ItemTable/>
           </Route>
-          <Redirect to={'/ProjectDetail/:id/:name/list'}/>
+          <Route path={'/ProjectDetail/:id/:name/progress'}>
+            <Progress/>
+          </Route>
+          <Route path={'/ProjectDetail/:id/:name/notice'}>
+            <Notice/>
+          </Route>
+          <Redirect to={'/ProjectDetail/:id/:name/notice'}/>
         </Switch>
       </div>
     </>

@@ -104,7 +104,14 @@ export default function ItemTable() {
       <Button className={style.btn} onClick={showModal}>
         添加任务
       </Button>
-      <Table className={style.table} dataSource={missions} columns={columns}></Table>
+      <Table 
+        className={style.table} 
+        dataSource={missions} 
+        columns={columns}
+        rowSelection={{
+          type: 'checkbox'
+        }}
+      ></Table>
 
       <Modal visible={visible}
         onOk = {handleOk}
