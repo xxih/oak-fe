@@ -108,8 +108,9 @@ export default function Team() {
             rules={[{required:true}]}
           >    
             <Select>
-              <Option value="管理员">管理员</Option>
-              <Option value="成员">成员</Option>
+              <Option value="leader">超级管理员</Option>
+              <Option value="admin">管理员</Option>
+              <Option value="member">成员</Option>
             </Select>
           </Form.Item>
         </Form>
