@@ -24,6 +24,18 @@
     .text{
       font-size: 30px;
     }
+    .signature{
+      &:hover{
+        border: 1px dashed rgb(194, 194, 194);
+        border-radius: 2px;
+      }
+      margin: 1px;
+      color: grey;
+      box-sizing:border-box;
+      height: 32px;
+      cursor: pointer;
+      line-height: 32px;
+    }
   }
 }
 
