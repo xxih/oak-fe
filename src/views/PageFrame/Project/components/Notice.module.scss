@@ -1,0 +1,28 @@
+.noticeContainer{
+  width: 400px;
+  height: 180px;
+  margin-top: 40px;
+  border-radius: 20px;
+  box-shadow: rgb(230, 232, 236) 0 0 10px;
+  padding: 25px 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .notice{
+    font-size: 20px;
+  }
+  .btn{
+    margin-left: auto;
+  }
+}
+
+.modal{
+  width: 100px;
+  .modalTitle{
+    
+    font-size: 23px;
+  }
+  .form{
+    margin-top: 28px;
+  }
+}

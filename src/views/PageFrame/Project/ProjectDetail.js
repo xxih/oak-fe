@@ -47,7 +47,7 @@ export default function ProjectDetail() {
           <Route path={'/ProjectDetail/:id/:name/notice'}>
             <Notice/>
           </Route>
-          <Redirect to={'/ProjectDetail/:id/:name/notice'}/>
+          <Redirect to={'/ProjectDetail/:id/:name/list'}/>
         </Switch>
       </div>
     </>
