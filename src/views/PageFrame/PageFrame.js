@@ -39,6 +39,15 @@ export default function PageFrame() {
     localStorage.setItem('selectedTeam',item.key)
     history.push('/Project')
   }
+  
+  function goCreateTeamPage(){
+    history.push('/CreateTeam')
+  }
+
+  function goMinePage(){
+    history.push('/Mine')
+  }
+
   const menu = (
     <Menu>
       <Menu.ItemGroup title={`切换团队`} style={{width:150}}>
@@ -59,9 +68,8 @@ export default function PageFrame() {
       <Menu.Divider />
       <Menu.Item 
         key="createNewTeam"
-        onClick  
+        onClick={goCreateTeamPage}
       >
-
           新建团队
       </Menu.Item>
     </Menu>
@@ -69,6 +77,12 @@ export default function PageFrame() {
 
   const logOutMenu = (
     <Menu>
+      <Menu.Item onClick={goMinePage} key="goMinePage">
+        个人中心
+      </Menu.Item>
+      <Menu.Item onClick={goMinePage} key="goChangePassword">
+        修改密码
+      </Menu.Item>
       <Menu.Item onClick={logOut} key="logout">
         退出登录
       </Menu.Item>

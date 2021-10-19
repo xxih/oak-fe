@@ -1,3 +1,4 @@
+
 import axios from './http'
 
 const api = {
@@ -86,8 +87,37 @@ const api = {
     .then((res)=>{
       return Promise.resolve(res.data)
     })
+  },
+  async getNotice(params){
+    return axios.get('/getNotice/',{params})
+    .then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  async writeNotice(params){
+    return axios.post('/writeNotice/',params)
+    .then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  async createTeam(params){
+    return axios.post('/createTeam/',params)
+    .then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  async getMemberInfo(params){
+    return axios.get('/getMemberInfo/',{params})
+    .then((res)=>{
+      return Promise.resolve(res.data)
+    })
+  },
+  async writeMemberInfo(params){
+    return axios.post('/writeMemberInfo/',params)
+    .then((res)=>{
+      return Promise.resolve(res.data)
+    })
   }
-
 }
 
 export default api
