@@ -2,23 +2,26 @@ import { Form, Input, Button, Space } from 'antd';
 import { useHistory} from 'react-router-dom'
 import style from './Login.module.scss'
 import api from '@/utils/api'
+import { useDispatch } from 'react-redux';
+
+import { switchTeamAction, switchToken } from '@/redux';
+
 
 
 export default function Login() {
   const [form] = Form.useForm()
   let history = useHistory()
+  const dispatch = useDispatch()
 
   const onLogin = () => {
     let {oakCode,teamName,password} = form.getFieldValue()
-    let res = api.logIn({
+    api.logIn({
       oakCode:parseInt(oakCode),
       teamName,
       password
-    })
-    res.then((res)=>{
+    }).then((res)=>{
       localStorage.setItem('token',res.token)
       localStorage.setItem('oakCode',oakCode)
-      localStorage.setItem('selectedTeam',teamName)
       let mySelf = res.member.find((item)=>{
         return item.OakCode===parseInt(oakCode)
       })
@@ -26,6 +29,8 @@ export default function Login() {
       localStorage.setItem('avatar',mySelf.avatar)
       localStorage.setItem('name',mySelf.name)
       localStorage.setItem('duty',mySelf.Duty)
+      dispatch(switchToken(true))
+      dispatch(switchTeamAction(teamName))
       history.push('/Project')
     })
   };

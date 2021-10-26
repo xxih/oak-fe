@@ -22,9 +22,6 @@ export default function PageFrame() {
   let selectedTeam = useSelector(state=>state.selectedTeam)
   const [team, setTeam] = useState([])
   useEffect(() => {
-    if(selectedTeam===''){
-      dispatch(switchTeamAction(localStorage.getItem('selectedTeam')))
-    }
     let res = api.getTeam({
       token:localStorage.getItem('token'),
       oakCode:localStorage.getItem('oakCode')
