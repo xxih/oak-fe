@@ -20,12 +20,11 @@ export default function Login() {
       teamName,
       password
     }).then((res)=>{
-      localStorage.setItem('token',res.token)
-      localStorage.setItem('oakCode',oakCode)
       let mySelf = res.member.find((item)=>{
         return item.OakCode===parseInt(oakCode)
       })
-      // console.log(mySelf);
+      localStorage.setItem('token',res.token)
+      localStorage.setItem('oakCode',oakCode)
       localStorage.setItem('avatar',mySelf.avatar)
       localStorage.setItem('name',mySelf.name)
       localStorage.setItem('duty',mySelf.Duty)

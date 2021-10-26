@@ -3,27 +3,13 @@ import { Redirect, Route, Switch, useLocation, useParams } from 'react-router'
 // import { Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 
-import api from '@/utils/api'
 import style from './ProjectDetail.module.scss'
-import { useSelector } from 'react-redux'
 import ItemTable from './components/ItemTable';
-import Progress from './components/Progress';
+import ProgressPage from './components/ProgressPage';
 import Notice from './components/Notice';
 
 export default function ProjectDetail() {
-  let location = useLocation()
-  let selectedTeam =  useSelector(state=>state.selectedTeam)
   const {id, name} = useParams()
-  // const [member, setMember] = useState([])
-  // useEffect(() => {
-  //   api.getMembers({
-  //     token:localStorage.getItem('token'),
-  //     teamName:selectedTeam,
-  //   })
-  //   .then((res)=>{
-  //     setMember(res.member)
-  //   })
-  // }, [])
   return (
     <>
       <div className={style.header}>
@@ -42,7 +28,7 @@ export default function ProjectDetail() {
             <ItemTable/>
           </Route>
           <Route path={'/ProjectDetail/:id/:name/progress'}>
-            <Progress/>
+            <ProgressPage/>
           </Route>
           <Route path={'/ProjectDetail/:id/:name/notice'}>
             <Notice/>

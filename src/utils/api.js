@@ -117,6 +117,13 @@ const api = {
     .then((res)=>{
       return Promise.resolve(res.data)
     })
+  },
+  async getAllMission(params){
+    return axios.get('/getAllMission/',{params})
+    .then(res=>{
+      return res.data
+    })
+
   }
 }
 

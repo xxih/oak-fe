@@ -9,10 +9,10 @@ export function switchTeamAction(str){
     teamName:str
   }
 }
-export function switchToken(status){
+export function switchToken(token){
   return{
     type:SWITCH_TOKEN,
-    status
+    token
   }
 }
 
@@ -27,7 +27,7 @@ export function reducer(state = initialState, action){
     case SWITCH_TEAM:
       return {...state,selectedTeam:action.teamName}
     case SWITCH_TOKEN:
-      return {...state,token:action.status}
+      return {...state,token:action.token}
     default:
       return state
   }
