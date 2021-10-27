@@ -71,7 +71,7 @@ export default function ItemTable() {
       key: 'name',
       render:(text,record)=>{
         return(
-          <a id={record.id} onClick={()=>{
+          <a onClick={()=>{
             showDetail(record)
           }}>{text}</a>
         )
@@ -97,7 +97,8 @@ export default function ItemTable() {
       key:'操作',
       render:(text,record)=>(
         <Space>
-          <a>详情</a>
+          <a onClick={()=>{
+            showDetail(record)}}>详情</a>
           <a onClick={function(){
             setEditModalVisible(true)
           }}>编辑</a>
@@ -153,9 +154,9 @@ export default function ItemTable() {
   }
 
   const showDetail = (e)=>{
+    setDrawerVisible(true)
     console.log(e);
     setMissionBasis(e)
-    setDrawerVisible(true)
     api.getMissionDetail({
       missionID:e.id,
       token:localStorage.getItem('token')
