@@ -1,17 +1,25 @@
 .container{
-  // background-color: #ddd;
   margin-top: 0px;
   height: 500px;
   width: 100%;
+  .bar{
+    display: flex;
+    .btn{
+      margin-top: 0;
+    }
+    .select{
+      margin-left: 20px;
+    }
+    .completeBtn{
+      margin-left: auto;
+    }
+  }
   .table{
     margin-top: 10px;
   }
-  .btn{
-    margin-top: 0;
-  }
 }
 
-.modal{
+.modalAdd{
   .title{
     margin-left: 10px;
     font-size: 20px;

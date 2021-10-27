@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar,Input } from 'antd';
+import { Avatar,Input,List,Checkbox,Tag} from 'antd';
 import {
   CloseOutlined
 } from '@ant-design/icons';
@@ -86,11 +86,25 @@ export default function Mine() {
         <div className={style.text}>任务</div>
       </div>
       <div className={style.content}>
-        {
+        <List
+          bordered
+          dataSource={missions}
+          renderItem={
+            item=><List.Item className={style.missionContainer}>
+                <Checkbox></Checkbox>
+                <div className={style.missionName}>{item.name}</div>
+                <Tag className={style.tag}> {item.priority}</Tag>
+                <Avatar className={style.avatar} size={18} src={localStorage.getItem('avatar')}></Avatar>
+                <div className={style.name}>{localStorage.getItem('name')}</div>
+              </List.Item>
+          }
+        >
+        </List>
+        {/* {
           missions.map((item)=>{
             return <div key={item.id}>{item.name}</div>
           })
-        }
+        } */}
       </div>
     </div>
   </div>
