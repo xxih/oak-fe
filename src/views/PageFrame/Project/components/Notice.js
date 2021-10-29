@@ -13,6 +13,17 @@ export default function Notice() {
   const [notice, setNotice] = useState('')
   const [visible, setVisible] = useState(false);
 
+  useEffect(() => {
+    api.getNotice({
+      projectID:id,
+      token:localStorage.getItem('token')
+    })
+    .then((res)=>{
+      console.log(res);
+      setNotice(res.content)
+    })
+  }, [])  
+  
   function commitNotice(){
     api.writeNotice({
       content:form.getFieldValue().content,
@@ -34,16 +45,6 @@ export default function Notice() {
     setVisible(false)
   }
   
-  useEffect(() => {
-    api.getNotice({
-      projectID:id,
-      token:localStorage.getItem('token')
-    })
-    .then((res)=>{
-      console.log(res);
-      setNotice(res.content)
-    })
-  }, [])  
   return (
     <div>
       <div className={style.noticeContainer}>
