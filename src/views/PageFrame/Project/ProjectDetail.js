@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {  Redirect, Route, Switch, useHistory, useLocation, useParams } from 'react-router'
-import { Input, Form} from 'antd';
+import { Input, Modal} from 'antd';
 import {
   CloseOutlined,
 } from '@ant-design/icons';
@@ -16,6 +16,7 @@ export default function ProjectDetail() {
   const history = useHistory()
   const {id, name} = useParams()
   const [notice, setNotice] = useState('')
+  const [modalDisplay, setModalDisplay] = useState(false)
   const [noticeDisplay, setNoticeDisplay] = useState(true)
   useEffect(() => {
     api.getNotice({
@@ -41,6 +42,19 @@ export default function ProjectDetail() {
     })
   }
   
+  function handleModalOk(){
+    api.deleteProject({
+      token:localStorage.getItem('token'),
+      projectID:id
+    })
+    .then(()=>{
+      history.push('/Project')
+    })
+  }
+  function handleModalCancel(){
+    setModalDisplay(false)
+  }
+
   return (
     <>
       <div className={style.header}>
@@ -77,6 +91,7 @@ export default function ProjectDetail() {
           <div className={style.menu}>
             <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/list`}>列表</Link>
             <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/progress`}>进展</Link>
+            <span className={style.menuDel} onClick={function(){setModalDisplay(true)}}>删除</span>
             {/* <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/notice`}>公告</Link> */}
           </div>
         </div>
@@ -95,6 +110,14 @@ export default function ProjectDetail() {
           <Redirect to={'/ProjectDetail/:id/:name/list'}/>
         </Switch>
       </div>
+      <Modal 
+        title="警告"
+        visible={modalDisplay} 
+        onOk={handleModalOk} 
+        onCancel={handleModalCancel}
+      >
+        该项目所有的内容都将被删除，确认删除该项目吗？
+      </Modal>
     </>
   )
 }

@@ -147,6 +147,12 @@ const api = {
     .then(res=>{
       return res.data
     })
+  },
+  async deleteProject(params){
+    return axios.post('/deleteProject/',params)
+    .then(res=>{
+      return res.data
+    })
   }
 }
 
