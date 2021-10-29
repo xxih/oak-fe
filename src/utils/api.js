@@ -141,6 +141,12 @@ const api = {
     .then(res=>{
       return res.data
     })
+  },
+  async deleteMission(params){
+    return axios.post('/deleteMission/',params)
+    .then(res=>{
+      return res.data
+    })
   }
 }
 

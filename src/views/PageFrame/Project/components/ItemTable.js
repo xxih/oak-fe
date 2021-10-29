@@ -1,7 +1,7 @@
 import React, { useEffect, useState  } from 'react'
 import { useHistory, useParams } from 'react-router';
 import { useSelector } from 'react-redux';
-import { Button, Modal, Form, Input, DatePicker, Radio, Select, Table, Space, Drawer} from 'antd'
+import { Button, Modal, Form, Input, DatePicker, Radio, Select, Table, Space, Drawer, Popconfirm} from 'antd'
 
 import api from '@/utils/api';
 import style from './ItemTable.module.scss'
@@ -102,6 +102,19 @@ export default function ItemTable() {
           <a onClick={function(){
             setEditModalVisible(true)
           }}>编辑</a>
+          <Popconfirm
+            title="你确认要删除该任务吗？"
+            onConfirm={()=>{
+              confirmDelete(record)
+            }}
+            onCancel={cancelDelete}
+          >
+            <a
+              className={style.del} 
+            >
+              删除
+            </a>
+          </Popconfirm>
         </Space>
       )
     }
@@ -187,6 +200,21 @@ export default function ItemTable() {
     if(doneSelection==='doing'){
       return doingMissions
     }
+  }
+
+  //pop的确认删除和取消
+  function confirmDelete(record){
+    api.deleteMission({
+      missionID:record.id,
+      token:localStorage.getItem('token')
+    })
+    .then(res=>{
+      console.log(res);
+      history.go(0)
+    })
+  }
+  function cancelDelete(){
+
   }
   return (
     <div className={style.container}>
