@@ -45,6 +45,10 @@ export default function PageFrame() {
     history.push('/Mine')
   }
 
+  function goChangePassword(){
+    history.push('/ChangePassword')
+  }
+
   const menu = (
     <Menu>
       <Menu.ItemGroup title={`切换团队`} style={{width:150}}>
@@ -77,7 +81,7 @@ export default function PageFrame() {
       <Menu.Item onClick={goMinePage} key="goMinePage">
         个人中心
       </Menu.Item>
-      <Menu.Item onClick={goMinePage} key="goChangePassword">
+      <Menu.Item onClick={goChangePassword} key="goChangePassword">
         修改密码
       </Menu.Item>
       <Menu.Item onClick={logOut} key="logout">

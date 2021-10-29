@@ -135,6 +135,12 @@ const api = {
     .then(res=>{
       return res.data
     })
+  },
+  async updatePassword(params){
+    return axios.post('/updatePassword/',params)
+    .then(res=>{
+      return res.data
+    })
   }
 }
 

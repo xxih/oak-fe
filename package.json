@@ -26,8 +26,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "react-app-rewired start NODE_ENV=development",
+    "build": "react-app-rewired build NODE_ENV=production" ,
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },

@@ -5,6 +5,7 @@ import CreateProject from "./views/CreateProject/CreateProject";
 import CreateTeam from "./views/CreatTeam/CreateTeam";
 import Login from "./views/Login/Login";
 import PageFrame from "./views/PageFrame/PageFrame";
+import ChangePassword from './views/ChangePassword/ChangePassword'
 
 export default function RouterIndex() {
   
@@ -12,6 +13,9 @@ export default function RouterIndex() {
   return (
     <HashRouter>
       <Switch>
+        <Route path="/ChangePassword">
+          <ChangePassword></ChangePassword>
+        </Route>
         <Route path="/CreateTeam">
           <CreateTeam/>
         </Route>

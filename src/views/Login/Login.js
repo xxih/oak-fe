@@ -1,4 +1,4 @@
-import { Form, Input, Button, Space } from 'antd';
+import { Form, Input, Button, Space, message } from 'antd';
 import { useHistory} from 'react-router-dom'
 import style from './Login.module.scss'
 import api from '@/utils/api'
@@ -42,7 +42,7 @@ export default function Login() {
       password
     })
     res.then((res)=>{
-      console.log(res);
+      message.success('创建队伍成功')
     },err=>{
       console.log(err);
     })
@@ -53,7 +53,8 @@ export default function Login() {
         OAK管理系统
       </div>
       <div className={style.container}>
-      <Form
+      <Form      
+        requiredMark={false}
         form={form}
         name="basic"
         labelCol={{
@@ -66,6 +67,7 @@ export default function Login() {
           remember: true,
         }}
         autoComplete="off"
+        
       >
         <Form.Item
           label="小组名称"
@@ -76,6 +78,7 @@ export default function Login() {
               message: '请输入您的小组名',
             }
           ]}
+          
         >
           <Input />
         </Form.Item>
@@ -103,7 +106,7 @@ export default function Login() {
             },
           ]}
         >
-          <Input.Password />
+          <Input.Password onPressEnter={onLogin}/>
         </Form.Item>
 
         <Form.Item
@@ -119,7 +122,7 @@ export default function Login() {
             </Button>
             <Button type="primary" htmlType="button"
             onClick={onRegister}>
-            注册
+            初始化队伍
             </Button>
           </Space>
         </Form.Item>
