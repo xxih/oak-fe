@@ -11,7 +11,7 @@ const api = {
         case 2:
           return Promise.reject("oakCode不存在或密码错误")
         case 3:
-          return Promise.reject("队名错误")
+          return Promise.reject("队名错误,第一次使用oak需要创建队伍哦~")
         default:
           return 
       }
@@ -23,13 +23,13 @@ const api = {
       console.log(1);
       console.log(res);
       if(res.data.response===1){
-        return Promise.resolve('创建成功')
+        return Promise.resolve('创建成功!现在您可以登录啦!')
       }
       else if(res.data.response===2){
         return Promise.reject('oakCode不存在或者密码错误')
       }
       else if(res.data.response===3){
-        return Promise.reject('队名重复或不合法')
+        return Promise.reject('队名重复或不合法哦，再选一个队名吧~')
       }
       else return
     },err=>{
@@ -160,7 +160,14 @@ const api = {
     .then(res=>{
       return res.data
     })
+  },
+  async updateMission(params){
+    return axios.post('/updateMission/', params)
+    .then((res)=>{
+      return res.data
+    })
   }
+
 }
 
 export default api

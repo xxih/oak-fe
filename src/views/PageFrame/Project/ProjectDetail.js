@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import {  Redirect, Route, Switch, useHistory, useLocation, useParams } from 'react-router'
+import {  Redirect, Route, Switch, useHistory, useParams } from 'react-router'
 import { Input, Modal} from 'antd';
 import {
   CloseOutlined,
 } from '@ant-design/icons';
+
 import { Link } from 'react-router-dom';
 
 import style from './ProjectDetail.module.scss'
@@ -67,7 +68,7 @@ export default function ProjectDetail() {
             style={{display:`${noticeDisplay?'':"none"}`}}
           >
             {
-              notice===""?'填写工作签名':notice
+              notice===""?'填写项目公告':notice
             }
           </div>
           <Input 
@@ -92,7 +93,6 @@ export default function ProjectDetail() {
             <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/list`}>列表</Link>
             <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/progress`}>进展</Link>
             <span className={style.menuDel} onClick={function(){setModalDisplay(true)}}>删除</span>
-            {/* <Link className={style.menuItem} to={`/ProjectDetail/${id}/${name}/notice`}>公告</Link> */}
           </div>
         </div>
       </div>
@@ -122,15 +122,3 @@ export default function ProjectDetail() {
   )
 }
 
-
-
-//暂时不用的头像组 组件
-        {/* <div className={style.right}>
-          <Avatar.Group>
-            {
-              member.map((item)=>{
-                return <Avatar src={item.avatar}/>
-              })
-            }
-          </Avatar.Group>
-        </div> */}

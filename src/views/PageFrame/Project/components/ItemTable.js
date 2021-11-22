@@ -2,6 +2,7 @@ import React, { useEffect, useState  } from 'react'
 import { useHistory, useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 import { Button, Modal, Form, Input, DatePicker, Radio, Select, Table, Space, Drawer, Popconfirm} from 'antd'
+import moment from 'moment';
 
 import api from '@/utils/api';
 import style from './ItemTable.module.scss'
@@ -14,21 +15,27 @@ const { TextArea } = Input
 
 export default function ItemTable() {
   const history = useHistory()
+  //接收项目id
   const {id} = useParams()
+  //弹出详情抽屉
+  const [drawerVisible, setDrawerVisible] = useState(false);
   const [form] = Form.useForm()
   const [form2] = Form.useForm()
-  const [drawerVisible, setDrawerVisible] = useState(false);
   const [selectedRowKeys, setSelectedRowKeys] = useState([])
   const [missionBasis, setMissionBasis] = useState({})
   const [missionDetail, setMissionDetail] = useState({})
   const [doneSelection, setDoneSelection] = useState('doing')
+  //添加弹窗
   const [visible, setVisible] = useState(false);
+  //编辑弹窗
   const [editModalVisible, setEditModalVisible] = useState(false);
   const [members, setMembers] = useState([])
   const [missions, setMissions] = useState([])
   const [doneMissions, setDoneMissions] = useState([])
   const [doingMissions, setDoingMissions] = useState([])
   const selectedTeam = useSelector(state => state.selectedTeam)
+  // 初始化页面数据
+  // #region
   useEffect(() => {
     api.getMembers({
       teamName:selectedTeam,
@@ -63,6 +70,7 @@ export default function ItemTable() {
     setDoneMissions(missions.filter(item=>{return item.status===true}))
     setDoingMissions(missions.filter(item=>{return item.status===false}))
   },[missions])
+  // #endregion
 
   const columns = [
     {
@@ -71,7 +79,8 @@ export default function ItemTable() {
       key: 'name',
       render:(text,record)=>{
         return(
-          <a onClick={()=>{
+          <a href='www.baidu.com' onClick={(e)=>{
+            e.preventDefault()
             showDetail(record)
           }}>{text}</a>
         )
@@ -97,10 +106,12 @@ export default function ItemTable() {
       key:'操作',
       render:(text,record)=>(
         <Space>
-          <a onClick={()=>{
+          <a href='www.baidu.com' onClick={(e)=>{
+            e.preventDefault()
             showDetail(record)}}>详情</a>
-          <a onClick={function(){
-            setEditModalVisible(true)
+          <a href='www.baidu.com' onClick={function(e){
+            e.preventDefault()
+            showEdit(record)
           }}>编辑</a>
           <Popconfirm
             title="你确认要删除该任务吗？"
@@ -109,7 +120,10 @@ export default function ItemTable() {
             }}
             onCancel={cancelDelete}
           >
-            <a
+            <a href='www.baidu.com'
+              onClick={(e)=>{
+                e.preventDefault()
+              }}
               className={style.del} 
             >
               删除
@@ -120,7 +134,8 @@ export default function ItemTable() {
     }
   ];
   
-  //操作modal的两个方法
+  //操作 添加modal 的三个方法
+  // #region
   const showModal = ()=>{
     setVisible(true)
   }
@@ -148,11 +163,47 @@ export default function ItemTable() {
     setVisible(false)
     // console.log(members);
   }
+  // #endregion
+
+  // 操作编辑弹窗的
+  const showEdit = (record)=>{
+    api.getMissionDetail({
+      missionID:record.id,
+      token:localStorage.getItem('token')
+    })
+    .then(res=>{
+      setMissionDetail(res)
+      setMissionBasis(record)
+      setEditModalVisible(true)
+    })
+  }
+  const handleEdit = ()=>{
+
+    let {missionName, priority, date, user_OakCode, description} = form2.getFieldValue()
+    console.log(form2.getFieldValue());
+    let endDate = date[1].format('YYYY-MM-DD')
+    let token = localStorage.getItem('token')
+    api.updateMission({
+      missionID:missionBasis.id,
+      missionName,
+      // startDate,
+      endDate,
+      user_OakCode,
+      priority,
+      description,
+      token
+    })
+    .then(()=>{
+      history.go(0)
+    })
+  }
 
   //操控已完成未完成的选择
   const onSelectDoneChange=(val)=>{
     setDoneSelection(val)
   }
+
+  // 将打钩的设为已完成
   const clickComplete = ()=>{
     console.log(selectedRowKeys);
     let requests = selectedRowKeys.map((item)=>{
@@ -166,9 +217,10 @@ export default function ItemTable() {
     })
   }
 
+  // 详情弹窗相关
+  // #region
   const showDetail = (e)=>{
     setDrawerVisible(true)
-    console.log(e);
     setMissionBasis(e)
     api.getMissionDetail({
       missionID:e.id,
@@ -181,6 +233,7 @@ export default function ItemTable() {
   const onCloseDrawer =()=>{
     setDrawerVisible(false)
   }
+  // #endregion
 
   const rowSelection = {
     onChange: (itemsKey, selectedRows) => {
@@ -272,10 +325,10 @@ export default function ItemTable() {
             rules={[{ required: true, message: 'Please input your priority!' }]}
           >
             <Radio.Group>
-              <Radio value="high">最高</Radio>
+              <Radio value="highest">最高</Radio>
               <Radio value="high">较高</Radio>
-              <Radio value="high">普通</Radio>
-              <Radio value="high">最低</Radio>
+              <Radio value="normal">普通</Radio>
+              <Radio value="low">低</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item
@@ -303,7 +356,7 @@ export default function ItemTable() {
         </Form>
       </Modal>
       <Modal visible={editModalVisible}
-        onOk = {handleOk}
+        onOk = {handleEdit}
         onCancel={function(){
           setEditModalVisible(false)
         }}
@@ -320,32 +373,42 @@ export default function ItemTable() {
             label="任务标题"
             name="missionName"
             rules={[{ required: true, message: 'Please input your missionName!' }]}
+            initialValue={missionBasis.name}
           >
-            <Input></Input>
+            <Input placeholder={missionBasis.name}></Input>
           </Form.Item>
           <Form.Item
             label="日期"
             name="date"
             rules={[{ required: true, message: 'Please input your date!' }]}
+            initialValue={[moment(missionDetail.start_date,'YYYY-MM-DD'),moment(missionBasis.end_date,'YYYY-MM-DD')]}
           >
-            <RangePicker format="YYYY-MM-DD"></RangePicker>
+            <RangePicker 
+              format="YYYY-MM-DD"
+              disabled={[true,false]}
+              // defaultValue={[moment(missionDetail.start_date,'YYYY-MM-DD'),moment(missionBasis.end_date,'YYYY-MM-DD')]}
+            >
+            
+            </RangePicker>
           </Form.Item>
           <Form.Item
             label="优先级"
             name="priority"
             rules={[{ required: true, message: 'Please input your priority!' }]}
+            initialValue={missionBasis.priority}
           >
             <Radio.Group>
-              <Radio value="high">最高</Radio>
+              <Radio value="highest">最高</Radio>
               <Radio value="high">较高</Radio>
-              <Radio value="high">普通</Radio>
-              <Radio value="high">最低</Radio>
+              <Radio value="normal">普通</Radio>
+              <Radio value="low">低</Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item
             label="负责人"
             name="user_OakCode"
             rules={[{ required: true, message: 'Please input your personInCharge!' }]}
+            initialValue={missionBasis.user_name}
           >
             <Select
               placeholder="选择一个负责人"
@@ -361,6 +424,7 @@ export default function ItemTable() {
             label="描述"
             name="description"
             rules={[{ required: true, message: 'Please input your description!' }]}
+            initialValue={missionDetail.description}
           >
             <TextArea></TextArea>
           </Form.Item>
@@ -368,7 +432,11 @@ export default function ItemTable() {
       </Modal>
       
       <Drawer title={missionBasis.name} 
-      placement="right" onClose={onCloseDrawer} visible={drawerVisible}>
+        placement="right" 
+        onClose={onCloseDrawer} 
+        visible={drawerVisible}
+        width={400}
+        className={style.drawer}>
         <p>任务标题：{missionBasis.name}</p>
         <p>优先级：{missionBasis.priority}</p>
         <p>负责人：{missionBasis.user_name}</p>
