@@ -5,10 +5,12 @@ import api from '@/utils/api'
 import { useDispatch } from 'react-redux';
 
 import { switchTeamAction, switchToken } from '@/redux';
+import logo from '@/assets/微信图片_20211122144258.jpg'
 
 
 
 export default function Login() {
+  // #region
   const [form] = Form.useForm()
   let history = useHistory()
   const dispatch = useDispatch()
@@ -36,21 +38,24 @@ export default function Login() {
 
   const onRegister = () => {
     let { oakCode,teamName,password } = form.getFieldValue()
-    let res = api.registerTeam({
+    api.registerTeam({
       oakCode:parseInt(oakCode),
       teamName,
       password
     })
-    res.then((res)=>{
-      message.success('创建队伍成功')
+    .then((res)=>{
+      console.log(res);
+      message.success(res)
     },err=>{
       console.log(err);
+      message.warning(err)
     })
   };
+  // #endregion
   return (
     <div className={style.page}>
       <div className={style.logo}>
-        OAK管理系统
+        <img className={style.logoImg} src={logo} alt="" />
       </div>
       <div className={style.container}>
       <Form      

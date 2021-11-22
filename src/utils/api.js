@@ -13,14 +13,17 @@ const api = {
         case 3:
           return Promise.reject("队名错误")
         default:
+          return 
       }
     })
   },
   async registerTeam(params){
-    let result = axios.post('/registerTeam/',params)
-    return result.then(res=>{
+    return axios.post('/registerTeam/',params)
+    .then(res=>{
+      console.log(1);
+      console.log(res);
       if(res.data.response===1){
-        return res.data
+        return Promise.resolve('创建成功')
       }
       else if(res.data.response===2){
         return Promise.reject('oakCode不存在或者密码错误')
@@ -28,6 +31,10 @@ const api = {
       else if(res.data.response===3){
         return Promise.reject('队名重复或不合法')
       }
+      else return
+    },err=>{
+      console.log(err);
+      return err
     })
   },
   async getTeam(params){

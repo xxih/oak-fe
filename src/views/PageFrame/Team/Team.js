@@ -4,12 +4,14 @@ import { Avatar,Tag,Button,Modal,Form, message,Input,Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import style from './Team.module.scss'
 import api from '@/utils/api';
+import { useHistory } from 'react-router';
 
 const {Option} = Select
 
 
 export default function Team() {
   let selectedTeam = useSelector(state=>state.selectedTeam)
+  const history = useHistory()
   const [members, setMembers] = useState([])
   const [visible, setVisible] = useState(false);
   const [membersNum, setMembersNum] = useState(0)
@@ -39,7 +41,9 @@ export default function Team() {
     })
     .then(()=>{
       message.success('邀请成功！')
-      setVisible(false)
+      setInterval(() => {
+        history.go(0)
+      }, 1000);
     })
   }
 

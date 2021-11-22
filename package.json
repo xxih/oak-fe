@@ -2,6 +2,7 @@
   "name": "oak-fe",
   "version": "0.1.0",
   "private": true,
+  "homepage":".",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-table": "^2.56.3",
