@@ -33,6 +33,8 @@ export default function Login() {
       dispatch(switchToken(true))
       dispatch(switchTeamAction(teamName))
       history.push('/Project')
+    },err=>{
+      message.warning(err)
     })
   };
 
