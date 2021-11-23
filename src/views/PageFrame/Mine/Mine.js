@@ -91,7 +91,7 @@ export default function Mine() {
           dataSource={missions}
           renderItem={
             item=><List.Item className={style.missionContainer}>
-                <Checkbox></Checkbox>
+                {/* <Checkbox></Checkbox> */}
                 <div className={style.missionName}>{item.name}</div>
                 <Tag className={style.tag}> {item.priority}</Tag>
                 <Avatar className={style.avatar} size={18} src={localStorage.getItem('avatar')}></Avatar>

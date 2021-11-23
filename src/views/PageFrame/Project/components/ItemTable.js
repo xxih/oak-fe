@@ -408,7 +408,7 @@ export default function ItemTable() {
             label="负责人"
             name="user_OakCode"
             rules={[{ required: true, message: 'Please input your personInCharge!' }]}
-            initialValue={missionBasis.user_name}
+            initialValue={missionBasis.user_OakCode}
           >
             <Select
               placeholder="选择一个负责人"
