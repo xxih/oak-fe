@@ -1,0 +1,36 @@
+.container{
+
+    
+  display: flex;
+  align-items: center;
+  .left{
+    width: 100px;
+    height: 100%;
+    font-size: 18px;
+    margin-right: 80px;
+    .doing{
+      margin-top: 20px;
+      .num{
+        color:#44ACB6;
+        font-size: 35px;
+      }
+    }
+    .late{
+      margin-top: 20px;
+      .num{
+        color:#E04134;
+        font-size: 35px;
+      }
+    }
+    .done{
+      margin-top: 20px;
+      .num{
+        color:#64B52F;
+        font-size: 35px;
+      }
+    }
+  }
+}
+.circle{
+  display: flex;
+}
