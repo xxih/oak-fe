@@ -17,7 +17,7 @@ jobs:
     # 这是 github 官方的一个 action，用于 clone 该仓库的源码到工作流中，
     - uses: actions/checkout@v2
     - name: Build use Node.js ${{ matrix.node-version }}
-      run: npm install && npm run build
+      run: npm install --registry=https://registry.npm.taobao.org && npm run build
     - name: deploy
       uses: cross-the-world/scp-pipeline@master
       env:
