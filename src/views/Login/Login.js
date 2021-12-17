@@ -58,7 +58,6 @@ export default function Login() {
     <div className={style.page}>
       <div className={style.logo}>
         <img className={style.logoImg} src={logo} alt="" />
-        <div>test ci 1</div>
       </div>
       <div className={style.container}>
       <Form      
