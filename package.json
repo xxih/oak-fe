@@ -27,16 +27,18 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-app-rewired start NODE_ENV=development",
-    "build": "react-app-rewired build NODE_ENV=production" ,
+    "start": "NODE_ENV=development react-app-rewired start",
+    "build": "NODE_ENV=production CI=false react-app-rewired build" ,
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": "react-app",
+    "rules": {
+      "no-undef": "off",
+      "no-restricted-globals": "off",
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": {
     "production": [
