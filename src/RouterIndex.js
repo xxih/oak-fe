@@ -26,7 +26,7 @@ export default function RouterIndex() {
           <Login/>
         </Route>
         <Route path="/">
-          {token?
+          {token&&sessionStorage.getItem('token')?
           <PageFrame></PageFrame>:
           <Redirect to="/Login"/>}
         </Route>
