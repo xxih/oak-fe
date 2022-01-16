@@ -22,7 +22,7 @@ export default function ProjectDetail() {
   useEffect(() => {
     api.getNotice({
       projectID:id,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then((res)=>{
       console.log(res);
@@ -34,9 +34,9 @@ export default function ProjectDetail() {
   function commitNotice(e){
     api.writeNotice({
       content:e.target.value,
-      user_OakCode:localStorage.getItem('oakCode'),
+      user_OakCode:sessionStorage.getItem('oakCode'),
       projectID:id,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(()=>{
       history.go(0)
@@ -45,7 +45,7 @@ export default function ProjectDetail() {
   
   function handleModalOk(){
     api.deleteProject({
-      token:localStorage.getItem('token'),
+      token:sessionStorage.getItem('token'),
       projectID:id
     })
     .then(()=>{

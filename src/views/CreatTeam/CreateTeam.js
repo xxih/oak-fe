@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Button, Input, Form } from 'antd';
+import { Layout, Button, Input, Form,message } from 'antd';
 import style from './CreateTeam.module.scss'
 import {  CompressOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router';
@@ -15,12 +15,15 @@ export default function CreateTeam() {
   function createTeam(){
     let {teamName} = form.getFieldValue()
     api.createTeam({
-      oakCode:localStorage.getItem('oakCode'),
+      oakCode:sessionStorage.getItem('oakCode'),
       teamName,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(()=>{
       history.go(-1)
+    })
+    .catch(err=>{
+      message.error(err)
     })
   }
   return (    

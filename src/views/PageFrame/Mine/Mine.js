@@ -15,14 +15,14 @@ export default function Mine() {
 
   useEffect(() => {
     api.getPersonalMission({
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then((res)=>{
       setMissions(res.mission)
     })
     api.getMemberInfo({
-      token:localStorage.getItem('token'),
-      oakCode:localStorage.getItem('oakCode')
+      token:sessionStorage.getItem('token'),
+      oakCode:sessionStorage.getItem('oakCode')
     })
     .then(res=>{
       if(res.signature===null){}
@@ -34,9 +34,9 @@ export default function Mine() {
 
   function commitSignatrue(event){
     api.writeMemberInfo({
-      oakCode:localStorage.getItem('oakCode'),
+      oakCode:sessionStorage.getItem('oakCode'),
       signature:event.target.value,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(()=>{
       history.go(0)
@@ -48,10 +48,10 @@ export default function Mine() {
   <div className={style.container}>
     <div className={style.box}>
       <div className={style.header}>
-        <Avatar size={100} src={localStorage.avatar}></Avatar>
+        <Avatar size={100} src={sessionStorage.getItem('avatar')}></Avatar>
         <div className={style.column}>
           <div className={style.text}> 
-            {localStorage.name}
+            {sessionStorage.name}
           </div>
           <div className={style.signature}
             onClick={function(){
@@ -94,8 +94,8 @@ export default function Mine() {
                 {/* <Checkbox></Checkbox> */}
                 <div className={style.missionName}>{item.name}</div>
                 <Tag className={style.tag}> {item.priority}</Tag>
-                <Avatar className={style.avatar} size={18} src={localStorage.getItem('avatar')}></Avatar>
-                <div className={style.name}>{localStorage.getItem('name')}</div>
+                <Avatar className={style.avatar} size={18} src={sessionStorage.getItem('avatar')}></Avatar>
+                <div className={style.name}>{sessionStorage.getItem('name')}</div>
               </List.Item>
           }
         >

@@ -15,9 +15,9 @@ export default function CreateProject() {
   function createProject(){
     let {projectName} = form.getFieldValue()
     let result = api.createProject({
-      oakCode:localStorage.getItem('oakCode'),
+      oakCode:sessionStorage.getItem('oakCode'),
       teamName:selectedTeam,
-      token:localStorage.getItem('token'),
+      token:sessionStorage.getItem('token'),
       projectName:projectName
     })
     result.then((res)=>{

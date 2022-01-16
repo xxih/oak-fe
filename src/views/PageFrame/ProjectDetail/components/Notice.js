@@ -16,7 +16,7 @@ export default function Notice() {
   useEffect(() => {
     api.getNotice({
       projectID:id,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then((res)=>{
       console.log(res);
@@ -27,9 +27,9 @@ export default function Notice() {
   function commitNotice(){
     api.writeNotice({
       content:form.getFieldValue().content,
-      user_OakCode:localStorage.getItem('oakCode'),
+      user_OakCode:sessionStorage.getItem('oakCode'),
       projectID:id,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(()=>{
       history.go(0)

@@ -25,12 +25,6 @@ export default function Login() {
       let mySelf = res.member.find((item) => {
         return item.OakCode === parseInt(oakCode)
       })
-      localStorage.setItem('token', res.token)
-      localStorage.setItem('oakCode', oakCode)
-      localStorage.setItem('avatar', mySelf.avatar)
-      localStorage.setItem('name', mySelf.name)
-      localStorage.setItem('duty', mySelf.Duty)
-
       sessionStorage.setItem('token', res.token)
       sessionStorage.setItem('oakCode', oakCode)
       sessionStorage.setItem('avatar', mySelf.avatar)

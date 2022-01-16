@@ -13,7 +13,7 @@ export default function ChangePassword() {
   function changePassword(){
     let {oldPassword,newPassword} = form.getFieldValue()
     api.updatePassword({
-      oakCode:localStorage.getItem('oakCode'),
+      oakCode:sessionStorage.getItem('oakCode'),
       oldPassword,
       newPassword
     })

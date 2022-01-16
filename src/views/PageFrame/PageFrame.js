@@ -10,7 +10,7 @@ import style from './PageFrame.module.scss'
 import Project from './Project/Project.js'
 import Team from './Team/Team.js'
 import Mine from './Mine/Mine.js'
-import ProjectDetail from './Project/ProjectDetail';
+import ProjectDetail from './ProjectDetail/ProjectDetail';
 import api from '@/utils/api'
 const { Header, Content,Footer  } = Layout;
 
@@ -23,8 +23,8 @@ export default function PageFrame() {
   const [team, setTeam] = useState([])
   useEffect(() => {
     let res = api.getTeam({
-      token:localStorage.getItem('token'),
-      oakCode:localStorage.getItem('oakCode')
+      token:sessionStorage.getItem('token'),
+      oakCode:sessionStorage.getItem('oakCode')
     });
     res.then((data)=>{
       setTeam(data.team)
@@ -33,7 +33,6 @@ export default function PageFrame() {
 
   function switchTeam(item){
     dispatch(switchTeamAction(item.key))
-    localStorage.setItem('selectedTeam',item.key)
     history.push('/Project')
   }
   
@@ -91,7 +90,7 @@ export default function PageFrame() {
   )
 
   function logOut(){
-    localStorage.clear()
+    sessionStorage.clear()
     history.push('/Login')
   }
 
@@ -126,7 +125,7 @@ export default function PageFrame() {
         <Dropdown overlay={logOutMenu} className={style.avatar}>
           <Avatar  size="large"
           //  icon={<UserOutlined />} 
-            src={localStorage.avatar}
+            src={sessionStorage.getItem('avatar')}
             style={{cursor:"pointer",marginTop:"10px"}}
           />
         </Dropdown>

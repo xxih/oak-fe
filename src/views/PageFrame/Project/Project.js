@@ -5,7 +5,7 @@ import {
   FolderOutlined
 } from '@ant-design/icons';
 import style from './Project.module.scss'
-import NoProject from './NoProject'
+import NoProject from './NoProject/NoProject'
 import api from '@/utils/api'
 import { useHistory } from 'react-router';
 export default function Project() {
@@ -14,7 +14,7 @@ export default function Project() {
   const [projects,setProjects] = useState([1])
   useEffect(() => {
     api.getProject({
-      token:localStorage.getItem('token'),
+      token:sessionStorage.getItem('token'),
       teamName:selectedTeam
     })
     .then((res)=>{

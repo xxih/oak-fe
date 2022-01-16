@@ -12,7 +12,7 @@ export default function ProgressPage() {
   useEffect(() => {
     api.getAllMission({
       projectID:id,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(res=>{
       setStastic(tools.toProgressData(res))

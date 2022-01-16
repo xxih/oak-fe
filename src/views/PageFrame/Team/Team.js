@@ -18,7 +18,7 @@ export default function Team() {
   useEffect(() => {
     api.getMembers({
       teamName:selectedTeam,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then((res)=>{
       setMembers(res.member)
@@ -37,7 +37,7 @@ export default function Team() {
       oakCode,
       teamName:selectedTeam,
       duty,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(()=>{
       message.success('邀请成功！')

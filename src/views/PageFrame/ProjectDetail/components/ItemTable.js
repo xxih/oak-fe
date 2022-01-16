@@ -39,7 +39,7 @@ export default function ItemTable() {
   useEffect(() => {
     api.getMembers({
       teamName:selectedTeam,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then((res)=>{
       setMembers(res.member)
@@ -47,7 +47,7 @@ export default function ItemTable() {
   }, [])
 
   useEffect(() => {
-    api.getMission({projectID:id,token:localStorage.getItem('token')})
+    api.getMission({projectID:id,token:sessionStorage.getItem('token')})
     .then((res)=>{
       if(res.mission.length>0&&members.length>0){
         let tempMissions = res.mission.map((missionItem)=>{
@@ -144,7 +144,7 @@ export default function ItemTable() {
     let startDate = date[0].format('YYYY-MM-DD')
     let endDate = date[1].format('YYYY-MM-DD')
     let projectID = id
-    let token = localStorage.getItem('token')
+    let token = sessionStorage.getItem('token')
     api.createMission({
       missionName,
       startDate,
@@ -169,7 +169,7 @@ export default function ItemTable() {
   const showEdit = (record)=>{
     api.getMissionDetail({
       missionID:record.id,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(res=>{
       setMissionDetail(res)
@@ -182,7 +182,7 @@ export default function ItemTable() {
     let {missionName, priority, date, user_OakCode, description} = form2.getFieldValue()
     console.log(form2.getFieldValue());
     let endDate = date[1].format('YYYY-MM-DD')
-    let token = localStorage.getItem('token')
+    let token = sessionStorage.getItem('token')
     api.updateMission({
       missionID:missionBasis.id,
       missionName,
@@ -209,7 +209,7 @@ export default function ItemTable() {
     let requests = selectedRowKeys.map((item)=>{
       return api.switchMissionStatus({
         missionID:item,
-        token:localStorage.getItem('token')
+        token:sessionStorage.getItem('token')
       })
     })
     Promise.all(requests).then(res=>{
@@ -224,7 +224,7 @@ export default function ItemTable() {
     setMissionBasis(e)
     api.getMissionDetail({
       missionID:e.id,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(res=>{
       setMissionDetail(res)
@@ -259,7 +259,7 @@ export default function ItemTable() {
   function confirmDelete(record){
     api.deleteMission({
       missionID:record.id,
-      token:localStorage.getItem('token')
+      token:sessionStorage.getItem('token')
     })
     .then(res=>{
       console.log(res);
