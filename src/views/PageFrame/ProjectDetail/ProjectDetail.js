@@ -23,7 +23,9 @@ export default function ProjectDetail() {
       token:sessionStorage.getItem('token')
     })
     .then((res)=>{
-      setNotice(res.content)
+      if(res.notice){
+        setNotice(res.content)
+      }
     })
     .catch(err=>{
       message.error(err)
