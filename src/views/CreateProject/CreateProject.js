@@ -2,13 +2,13 @@ import React from 'react'
 import { Layout, Button, Input, Form } from 'antd';
 import style from './CreateProject.module.scss'
 import {  CompressOutlined } from '@ant-design/icons';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import api from '@/utils/api'
 
 
 export default function CreateProject() {
-  let history = useHistory()
+  let navigate = useNavigate()
   let selectedTeam = useSelector(state=>state.selectedTeam)
   const [form] = Form.useForm()
 
@@ -22,11 +22,11 @@ export default function CreateProject() {
     })
     result.then((res)=>{
       console.log(res);
-      history.push('/Project')
+      navigate('/Project')
     })
   }
   function back(){
-    history.goBack()
+    navigate(-1)
   }
   return (
     <div>

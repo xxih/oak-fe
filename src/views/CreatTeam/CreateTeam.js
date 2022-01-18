@@ -1,17 +1,26 @@
 import React from 'react'
-import { Layout, Button, Input, Form,message } from 'antd';
-import style from './CreateTeam.module.scss'
+import { 
+  Layout,
+  Button, 
+  Input, 
+  Form,
+  message
+} from 'antd';
+import { useNavigate } from 'react-router-dom';
 import {  CompressOutlined } from '@ant-design/icons';
-import { useHistory } from 'react-router';
+
+import style from './CreateTeam.module.scss'
 import api from '@/utils/api'
 
 
 export default function CreateTeam() {
-  const history = useHistory()
+  const navigate = useNavigate()
   const [form] = Form.useForm()
+
   function goBack(){
-    history.go(-1)
-  }  
+    navigate('/Project')
+  }
+
   function createTeam(){
     let {teamName} = form.getFieldValue()
     api.createTeam({
@@ -20,12 +29,13 @@ export default function CreateTeam() {
       token:sessionStorage.getItem('token')
     })
     .then(()=>{
-      history.go(-1)
+      navigate('/Project')
     })
     .catch(err=>{
       message.error(err)
     })
   }
+
   return (    
   <div>
     <Layout className={style.layout}> 
@@ -43,18 +53,11 @@ export default function CreateTeam() {
             团队名称
           </div>
           <Form form={form}>
-            <Form.Item 
-              name="teamName"
-              rules={[{required:true}]}
-              
-            >
+            <Form.Item name="teamName" rules={[{required:true}]}>
               <Input style={{marginTop:"20px",width:340}} />
             </Form.Item>
           </Form>
-          <Button className={style.btn} 
-          type="primary"
-          onClick={createTeam}
-          >
+          <Button className={style.btn} type="primary" onClick={createTeam}>
             创建团队
           </Button>
         </div>

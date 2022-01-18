@@ -1,13 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Layout, Button, Input, Form, message} from 'antd';
-import style from './ChangePassword.module.scss'
 import {  CompressOutlined } from '@ant-design/icons';
-import { useHistory } from 'react-router';
+
+import style from './ChangePassword.module.scss'
 import api from '@/utils/api'
 
 
 export default function ChangePassword() {
-  let history = useHistory()
+  let navigate = useNavigate()
   const [form] = Form.useForm()
 
   function changePassword(){
@@ -20,12 +21,12 @@ export default function ChangePassword() {
     .then(()=>{
       message.success('修改成功！三秒后回到登录界面...');
       setTimeout(()=>{
-        history.push('/Login')
+        navigate('/Login')
       },3000 )
     })
   }
   function back(){
-    history.goBack()
+    navigate(-1)
   }
   return (
     <div>

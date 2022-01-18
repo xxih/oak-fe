@@ -1,5 +1,5 @@
 import React, { useEffect, useState  } from 'react'
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Button, Modal, Form, Input, DatePicker, Radio, Select, Table, Space, Drawer, Popconfirm} from 'antd'
 import moment from 'moment';
@@ -14,7 +14,7 @@ const { TextArea } = Input
 
 
 export default function ItemTable() {
-  const history = useHistory()
+  const navigate = useNavigate()
   //接收项目id
   const {id} = useParams()
   //弹出详情抽屉
@@ -44,6 +44,9 @@ export default function ItemTable() {
     .then((res)=>{
       setMembers(res.member)
     })
+    .catch(err=>{
+      message.error(err)
+    })
   }, [])
 
   useEffect(() => {
@@ -63,7 +66,9 @@ export default function ItemTable() {
         setMissions(tempMissions)
       }
     })
-    
+    .catch(err=>{
+      message.error(err)
+    })
   }, [members])
 
   useEffect(()=>{

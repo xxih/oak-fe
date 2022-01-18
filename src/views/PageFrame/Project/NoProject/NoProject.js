@@ -3,12 +3,11 @@ import style from './NoProject.module.scss'
 import {
   FolderAddOutlined
 } from '@ant-design/icons';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 export default function NoProject() {
-  let history = useHistory()
+  const navigate = useNavigate()
   function toCreatProjectPage(){
-    history.push('/CreateProject')
-    console.log(1);
+    navigate('/CreateProject')
   }
   return (
     <div className={style.container}>

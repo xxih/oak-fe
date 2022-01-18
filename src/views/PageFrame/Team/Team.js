@@ -1,50 +1,63 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Avatar,Tag,Button,Modal,Form, message,Input,Select } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { Avatar, Tag, Button, Modal, Form, message, Input, Select } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+
 import style from './Team.module.scss'
 import api from '@/utils/api';
-import { useHistory } from 'react-router';
 
-const {Option} = Select
+const { Option } = Select
 
 
 export default function Team() {
-  let selectedTeam = useSelector(state=>state.selectedTeam)
-  const history = useHistory()
+  let selectedTeam = useSelector(state => state.selectedTeam)
+  const navigate = useNavigate()
   const [members, setMembers] = useState([])
   const [visible, setVisible] = useState(false);
   const [membersNum, setMembersNum] = useState(0)
   useEffect(() => {
     api.getMembers({
-      teamName:selectedTeam,
-      token:sessionStorage.getItem('token')
+      teamName: selectedTeam,
+      token: sessionStorage.getItem('token')
     })
-    .then((res)=>{
-      setMembers(res.member)
-    })
+      .then((res) => {
+        setMembers(res.member)
+      })
+      .catch(err=>{
+        message.error(err)
+      })
   }, [])
 
-  useEffect(()=>{
-    // console.log(members.length);
+  useEffect(() => {
     setMembersNum(members.length)
-  },[members])
+  }, [members])
   const [form] = Form.useForm()
 
-  const handleOk = ()=>{
-    let {duty,oakCode} = form.getFieldValue()
+  const handleOk = () => {
+    let { duty, oakCode } = form.getFieldValue()
     api.inviteMember({
       oakCode,
-      teamName:selectedTeam,
+      teamName: selectedTeam,
       duty,
-      token:sessionStorage.getItem('token')
+      token: sessionStorage.getItem('token')
     })
-    .then(()=>{
-      message.success('邀请成功！')
-      setInterval(() => {
-        history.go(0)
-      }, 1000);
-    })
+      .then(() => {
+        message.success('邀请成功！')
+        api.getMembers({
+          teamName: selectedTeam,
+          token: sessionStorage.getItem('token')
+        })
+          .then((res) => {
+            setMembers(res.member)
+          })
+          .catch(err=>{
+            message.error(err)
+          })
+      })
+      .catch(err=>{
+        message.error(err)
+      })
   }
 
   return (
@@ -57,20 +70,20 @@ export default function Team() {
           <div className={style.groupName}>{selectedTeam}</div>
           <div className={style.num}>
             （共{
-            membersNum
+              membersNum
             }人）
           </div>
           <Button className={style.inviteBtn}
-            onClick={function(){
+            onClick={function () {
               setVisible(true)
             }}
           >邀请新成员</Button>
         </div>
         <div className={style.list}>
           {
-            members.map(item=>{
+            members.map(item => {
               return <div className={style.item}
-              key={item.OakCode}
+                key={item.OakCode}
               >
                 <Avatar className={style.icon} size={30} src={item.avatar}></Avatar>
                 <div className={style.name}>{item.name}</div>
@@ -83,7 +96,7 @@ export default function Team() {
       </div>
       <Modal visible={visible}
         onOk={handleOk}
-        onCancel={function(){
+        onCancel={function () {
           setVisible(false)
         }}
         className={style.modal}
@@ -93,8 +106,8 @@ export default function Team() {
           邀请新成员
         </div>
         <Form
-          labelCol={{span:7}}
-          wrapperCol={{span:13}}
+          labelCol={{ span: 7 }}
+          wrapperCol={{ span: 13 }}
           className={style.form}
           form={form}
           requiredMark={false}
@@ -102,15 +115,15 @@ export default function Team() {
           <Form.Item
             label="橡木码"
             name="oakCode"
-            rules={[{required:true}]}
+            rules={[{ required: true }]}
           >
             <Input></Input>
           </Form.Item>
           <Form.Item
             label="身份"
             name="duty"
-            rules={[{required:true}]}
-          >    
+            rules={[{ required: true }]}
+          >
             <Select>
               <Option value="leader">超级管理员</Option>
               <Option value="admin">管理员</Option>

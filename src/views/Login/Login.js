@@ -1,10 +1,17 @@
-import { Form, Input, Button, Space, message } from 'antd';
-import { useHistory } from 'react-router-dom'
-import style from './Login.module.scss'
-import api from '@/utils/api'
+import {
+  Form,
+  Input,
+  Button,
+  Space,
+  message
+} from 'antd';
+import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 
-import { switchTeamAction, switchToken } from '@/redux';
+import style from './Login.module.scss'
+import api from '@/utils/api'
+import { switchTeamAction } from '@/redux';
+
 // import logo from '@/assets/微信图片_20211122144258.jpg'
 
 
@@ -12,7 +19,7 @@ import { switchTeamAction, switchToken } from '@/redux';
 export default function Login() {
   // #region
   const [form] = Form.useForm()
-  let history = useHistory()
+  let navigate = useNavigate()
   const dispatch = useDispatch()
 
   const onLogin = () => {
@@ -21,19 +28,19 @@ export default function Login() {
       oakCode: parseInt(oakCode),
       teamName,
       password
-    }).then((res) => {
-      let mySelf = res.member.find((item) => {
-        return item.OakCode === parseInt(oakCode)
-      })
-      sessionStorage.setItem('token', res.token)
-      sessionStorage.setItem('oakCode', oakCode)
-      sessionStorage.setItem('avatar', mySelf.avatar)
-      sessionStorage.setItem('name', mySelf.name)
-      sessionStorage.setItem('duty', mySelf.Duty)
-      dispatch(switchToken(true))
-      dispatch(switchTeamAction(teamName))
-      history.push('/Project')
     })
+      .then((res) => {
+        let mySelf = res.member.find((item) => {
+          return item.OakCode === parseInt(oakCode)
+        })
+        sessionStorage.setItem('token', res.token)
+        sessionStorage.setItem('oakCode', oakCode)
+        sessionStorage.setItem('avatar', mySelf.avatar)
+        sessionStorage.setItem('name', mySelf.name)
+        sessionStorage.setItem('duty', mySelf.Duty)
+        dispatch(switchTeamAction(teamName))
+        navigate('/Project')
+      })
       .catch((err) => {
         message.warning(err)
       })

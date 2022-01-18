@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 import {
   FolderAddOutlined,
   FolderOutlined
 } from '@ant-design/icons';
+
 import style from './Project.module.scss'
 import NoProject from './NoProject/NoProject'
 import api from '@/utils/api'
-import { useHistory } from 'react-router';
+import { message } from 'antd';
 export default function Project() {
-  let history = useHistory()
+  const navigate = useNavigate()
   let selectedTeam = useSelector(state=>state.selectedTeam) 
   const [projects,setProjects] = useState([1])
   useEffect(() => {
@@ -20,14 +22,17 @@ export default function Project() {
     .then((res)=>{
       setProjects(res.projects)
     })
+    .catch(err=>{
+      message.error(err)
+    })
   }, [selectedTeam])
   
   function toCreatProjectPage(){
-    history.push('/CreateProject')
+    navigate('/CreateProject')
     console.log(1);
   }
 
-  //这里是为了解决闪屏bug，当请求还没回来的时候，也就是projects仍为初始值，返回一个空div
+  //这里是为了解决闪屏，当请求还没回来的时候，也就是projects仍为初始值，返回一个空div
   function renderBox(){
     if(projects[0]===1){
       return <div></div>
@@ -41,7 +46,7 @@ export default function Project() {
       projects.map((item)=>{
         return <div className={style.projectItem}
           onClick={function(){
-            history.push(`/ProjectDetail/${item.id}/${item.name}`)
+            navigate(`/ProjectDetail/${item.id}/${item.name}`)
           }} 
           key={item.id}
           >

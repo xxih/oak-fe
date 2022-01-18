@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {useHistory,useLocation} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 import { Menu,Dropdown,Avatar,Layout  } from 'antd';
 
 import { DownOutlined } from '@ant-design/icons';
@@ -12,8 +12,8 @@ import style from './MyHeader.module.scss'
 const {  Header } = Layout;
 
 export default function MyHeader() {
+  const navigate = useNavigate()
   const location = useLocation()
-  const history = useHistory()
   const dispatch = useDispatch()
 
   //登录的时候已经 dispatch switchTeam，这里直接获取
@@ -59,14 +59,13 @@ export default function MyHeader() {
   
   function switchTeam(item){
     dispatch(switchTeamAction(item.key))
-    history.push('/Project')
+    navigate('/Project')
   }
 
   function goCreateTeamPage(){
-    history.push('/CreateTeam')
+    navigate('/CreateTeam')
   }
 
-  /////////////////////////////////////////////////////////////////
   const avatarMenu = (
     <Menu>
       <Menu.Item onClick={goMinePage} key="goMinePage">
@@ -81,27 +80,22 @@ export default function MyHeader() {
     </Menu>
   )
 
-  
   function goMinePage(){
-    history.push('/Mine')
+    navigate('/Mine')
   }
 
   function goChangePassword(){
-    history.push('/ChangePassword')
+    navigate('/ChangePassword')
   }
 
-  
   function logOut(){
     sessionStorage.clear()
-    history.push('/Login')
+    navigate('/Login')
   }
-/////////////////////////////////////////////////////////////////
-
-
-
   
   function switchMenu(e){
-    history.push(e.key)
+    navigate(e.key)
+    console.log(location.pathname);
   }
 
 

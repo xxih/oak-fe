@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import style from './Notice.module.scss'
-import { Button, Modal,Form,Input } from 'antd';
+import { Button, Modal,Form,Input, message } from 'antd';
 
 import api from '@/utils/api'
 import { useForm } from 'antd/lib/form/Form';
 
 export default function Notice() {  
-  const history = useHistory()
+  const navigate = useNavigate()
   const [form] = Form.useForm()
   const {id, name} = useParams()
   const [notice, setNotice] = useState('')
@@ -20,7 +20,12 @@ export default function Notice() {
     })
     .then((res)=>{
       console.log(res);
-      setNotice(res.content)
+      if(res.content){
+        setNotice(res.content)
+      }
+    })
+    .catch(err=>{
+      message.error(err)
     })
   }, [])  
   
@@ -32,7 +37,10 @@ export default function Notice() {
       token:sessionStorage.getItem('token')
     })
     .then(()=>{
-      history.go(0)
+      navigate(0)
+    })
+    .catch(err=>{
+      message.error(err)
     })
   }
 

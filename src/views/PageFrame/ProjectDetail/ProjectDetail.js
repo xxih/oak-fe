@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import {  Redirect, Route, Switch, useHistory, useParams } from 'react-router'
-import { Input, Modal} from 'antd';
+import {  Redirect, Route, useNavigate, useParams, Outlet } from 'react-router-dom'
+import { Input, message, Modal} from 'antd';
 import {
   CloseOutlined,
 } from '@ant-design/icons';
@@ -8,26 +8,30 @@ import {
 import { Link } from 'react-router-dom';
 
 import style from './ProjectDetail.module.scss'
-import ItemTable from './components/ItemTable';
-import ProgressPage from './components/ProgressPage';
-import Notice from './components/Notice';
 import api from '@/utils/api';
 
 export default function ProjectDetail() {
-  const history = useHistory()
+  const navigate = useNavigate()
   const {id, name} = useParams()
   const [notice, setNotice] = useState('')
   const [modalDisplay, setModalDisplay] = useState(false)
   const [noticeDisplay, setNoticeDisplay] = useState(true)
-  useEffect(() => {
+
+  function getNotice(){
     api.getNotice({
       projectID:id,
       token:sessionStorage.getItem('token')
     })
     .then((res)=>{
-      console.log(res);
       setNotice(res.content)
     })
+    .catch(err=>{
+      message.error(err)
+    })
+  }
+
+  useEffect(() => {
+    getNotice()
   }, [])  
 
   
@@ -39,7 +43,10 @@ export default function ProjectDetail() {
       token:sessionStorage.getItem('token')
     })
     .then(()=>{
-      history.go(0)
+      getNotice()
+    })
+    .catch(err=>{
+      message.error(err)
     })
   }
   
@@ -49,7 +56,10 @@ export default function ProjectDetail() {
       projectID:id
     })
     .then(()=>{
-      history.push('/Project')
+      navigate('/Project')
+    })
+    .catch(err=>{
+      message.error(err)
     })
   }
   function handleModalCancel(){
@@ -97,18 +107,7 @@ export default function ProjectDetail() {
         </div>
       </div>
       <div className={style.content}>
-        <Switch>
-          <Route path={'/ProjectDetail/:id/:name/list'}>
-            <ItemTable/>
-          </Route>
-          <Route path={'/ProjectDetail/:id/:name/progress'}>
-            <ProgressPage/>
-          </Route>
-          <Route path={'/ProjectDetail/:id/:name/notice'}>
-            <Notice/>
-          </Route>
-          <Redirect to={'/ProjectDetail/:id/:name/list'}/>
-        </Switch>
+        <Outlet></Outlet>
       </div>
       <Modal 
         title="警告"
