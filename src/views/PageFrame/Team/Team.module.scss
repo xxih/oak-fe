@@ -11,6 +11,12 @@
   margin-top: 40px;
   border-radius: 20px;
   box-shadow: rgb(230, 232, 236) 0 0 10px;
+  .spinContainer{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 .header{
   display: flex;

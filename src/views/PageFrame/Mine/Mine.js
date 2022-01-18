@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Input, List, Checkbox, Tag, message } from 'antd';
+import { Avatar, Input, List, Checkbox, Tag, Spin, message } from 'antd';
 import {
   CloseOutlined
 } from '@ant-design/icons';
@@ -7,33 +7,41 @@ import style from './Mine.module.scss'
 import api from '@/utils/api';
 
 export default function Mine() {
+  const [spin, setSpin] = useState(true)
   const [missions, setMissions] = useState([])
   const [signature, setSignature] = useState('')
   const [signatureDisplay, setSignatureDisplay] = useState(true)
 
   useEffect(() => {
-    api.getPersonalMission({
-      token: sessionStorage.getItem('token')
-    })
-      .then((res) => {
-        setMissions(res.mission)
+    Promise.all([
+      api.getPersonalMission({
+        token: sessionStorage.getItem('token')
       })
-      .catch(err=>{
-        message.error(err)
+        .then((res) => {
+          setMissions(res.mission)
+        })
+        .catch(err => {
+          message.error(err)
+        }),
+      api.getMemberInfo({
+        token: sessionStorage.getItem('token'),
+        oakCode: sessionStorage.getItem('oakCode')
       })
-    api.getMemberInfo({
-      token: sessionStorage.getItem('token'),
-      oakCode: sessionStorage.getItem('oakCode')
-    })
-      .then(res => {
-        if (res.signature === null) { }
-        else {
-          setSignature(res.signature)
-        }
+        .then(res => {
+          if (res.signature === null) { }
+          else {
+            setSignature(res.signature)
+          }
+        })
+        .catch(err => {
+          message.error(err)
+        })])
+      .then(() => {
+        console.log(1);
+        setSpin(false)
       })
-      .catch(err=>{
-        message.error(err)
-      })
+
+
   }, [])
 
   function commitSignatrue(event) {
@@ -53,11 +61,11 @@ export default function Mine() {
               setSignature(res.signature)
             }
           })
-          .catch(err=>{
+          .catch(err => {
             message.error(err)
           })
       })
-      .catch(err=>{
+      .catch(err => {
         message.error(err)
       })
   }
@@ -66,7 +74,10 @@ export default function Mine() {
   return (
     <div className={style.container}>
       <div className={style.box}>
-        <div className={style.header}>
+        <div className={style.spinContainer} style={{display:spin?'':'none'}}>
+          <Spin spinning={spin} size='large'></Spin>
+        </div>
+        <div className={style.header} style={{display:spin?'none':''}}>
           <Avatar size={100} src={sessionStorage.getItem('avatar')}></Avatar>
           <div className={style.column}>
             <div className={style.text}>
@@ -101,10 +112,10 @@ export default function Mine() {
             </Input>
           </div>
         </div>
-        <div className={style.bar}>
+        <div className={style.bar} style={{display:spin?'none':''}}>
           <div className={style.text}>任务</div>
         </div>
-        <div className={style.content}>
+        <div className={style.content} style={{display:spin?'none':''}}>
           <List
             bordered
             dataSource={missions}
@@ -120,10 +131,10 @@ export default function Mine() {
           >
           </List>
           {/* {
-          missions.map((item)=>{
-            return <div key={item.id}>{item.name}</div>
-          })
-        } */}
+            missions.map((item)=>{
+              return <div key={item.id}>{item.name}</div>
+            })
+          } */}
         </div>
       </div>
     </div>

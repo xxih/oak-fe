@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Avatar, Tag, Button, Modal, Form, message, Input, Select } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { Avatar, Tag, Button, Modal, Form, message, Input, Select, Spin } from 'antd';
 
 import style from './Team.module.scss'
 import api from '@/utils/api';
@@ -12,7 +10,7 @@ const { Option } = Select
 
 export default function Team() {
   let selectedTeam = useSelector(state => state.selectedTeam)
-  const navigate = useNavigate()
+  const [spin, setSpin] = useState(true)
   const [members, setMembers] = useState([])
   const [visible, setVisible] = useState(false);
   const [membersNum, setMembersNum] = useState(0)
@@ -23,8 +21,9 @@ export default function Team() {
     })
       .then((res) => {
         setMembers(res.member)
+        setSpin(false)
       })
-      .catch(err=>{
+      .catch(err => {
         message.error(err)
       })
   }, [])
@@ -51,11 +50,11 @@ export default function Team() {
           .then((res) => {
             setMembers(res.member)
           })
-          .catch(err=>{
+          .catch(err => {
             message.error(err)
           })
       })
-      .catch(err=>{
+      .catch(err => {
         message.error(err)
       })
   }
@@ -63,10 +62,13 @@ export default function Team() {
   return (
     <div className={style.container}>
       <div className={style.box}>
-        <div className={style.header}>
+        <div className={style.spinContainer} style={{ display: spin ? '' : 'none' }}>
+          <Spin spinning={spin} size='large'></Spin>
+        </div>
+        <div className={style.header} style={{display:spin?'none':''}}>
           <div className={style.btn}>所有成员</div>
         </div>
-        <div className={style.bar}>
+        <div className={style.bar} style={{display:spin?'none':''}}>
           <div className={style.groupName}>{selectedTeam}</div>
           <div className={style.num}>
             （共{
@@ -79,7 +81,7 @@ export default function Team() {
             }}
           >邀请新成员</Button>
         </div>
-        <div className={style.list}>
+        <div className={style.list} style={{display:spin?'none':''}}>
           {
             members.map(item => {
               return <div className={style.item}
