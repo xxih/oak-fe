@@ -32,7 +32,6 @@ export default function Project() {
 
   function toCreatProjectPage() {
     navigate('/CreateProject')
-    console.log(1);
   }
 
   
@@ -49,7 +48,7 @@ export default function Project() {
           projects.map((item) => {
             return <div className={style.projectItem}
               onClick={function () {
-                navigate(`/ProjectDetail/${item.id}/${item.name}`)
+                navigate(`/ProjectDetail/${item.id}/${item.name}/list`)
               }}
               key={item.id}
             >

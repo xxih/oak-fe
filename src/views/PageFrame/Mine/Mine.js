@@ -37,7 +37,6 @@ export default function Mine() {
           message.error(err)
         })])
       .then(() => {
-        console.log(1);
         setSpin(false)
       })
 

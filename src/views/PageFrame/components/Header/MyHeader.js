@@ -95,7 +95,6 @@ export default function MyHeader() {
   
   function switchMenu(e){
     navigate(e.key)
-    console.log(location.pathname);
   }
 
 
@@ -110,7 +109,7 @@ export default function MyHeader() {
         </Dropdown>
         <Menu 
           onClick={switchMenu} 
-          selectedKeys={location.pathname} 
+          selectedKeys={location.pathname.split('/')[1]==='ProjectDetail'?'/Project':location.pathname} 
           mode="horizontal" 
           className={style.menu}
         >
