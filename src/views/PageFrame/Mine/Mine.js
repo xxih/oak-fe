@@ -5,13 +5,14 @@ import {
 } from '@ant-design/icons';
 import style from './Mine.module.scss'
 import api from '@/utils/api';
+import { useRef } from 'react';
 
 export default function Mine() {
   const [spin, setSpin] = useState(true)
   const [missions, setMissions] = useState([])
   const [signature, setSignature] = useState('')
   const [signatureDisplay, setSignatureDisplay] = useState(true)
-
+  const inputRef = useRef()
   useEffect(() => {
     Promise.all([
       api.getPersonalMission({
@@ -44,25 +45,15 @@ export default function Mine() {
   }, [])
 
   function commitSignatrue(event) {
+    console.log(event);
     api.writeMemberInfo({
       oakCode: sessionStorage.getItem('oakCode'),
       signature: event.target.value,
       token: sessionStorage.getItem('token')
     })
       .then(() => {
-        api.getMemberInfo({
-          token: sessionStorage.getItem('token'),
-          oakCode: sessionStorage.getItem('oakCode')
-        })
-          .then(res => {
-            if (res.signature === null) { }
-            else {
-              setSignature(res.signature)
-            }
-          })
-          .catch(err => {
-            message.error(err)
-          })
+        setSignature(event.target.value)
+        setSignatureDisplay(true)
       })
       .catch(err => {
         message.error(err)
@@ -83,7 +74,9 @@ export default function Mine() {
               {sessionStorage.name}
             </div>
             <div className={style.signature}
-              onClick={function () {
+              onClick={function (e) {
+                console.log(inputRef.current);
+                inputRef.current.focus()
                 setSignatureDisplay(false)
               }}
               style={{ display: `${signatureDisplay ? '' : "none"}` }}
@@ -93,9 +86,11 @@ export default function Mine() {
               }
             </div>
             <Input
+              ref={inputRef}
               style={{ display: `${signatureDisplay ? 'none' : ''}` }}
               width={300}
-              placeholder='按下回车以确认'
+              placeholder={'按下回车以确认'}
+              value={signature===''?'':signature}
               onPressEnter={commitSignatrue}
               suffix={
                 <CloseOutlined
