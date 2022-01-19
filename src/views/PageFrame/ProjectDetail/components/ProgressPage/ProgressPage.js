@@ -1,5 +1,5 @@
 import api from '@/utils/api'
-import { Progress, Statistic } from 'antd';
+import { Progress } from 'antd';
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import tools from '@/utils/tools'
@@ -7,7 +7,7 @@ import style from './ProgressPage.module.scss'
 
 export default function ProgressPage() {
   const {id} = useParams()
-  const [stastic, setStastic] = useState({})
+  const [stastic, setStastic] = useState({missionNumber:0,done:0})
 
   useEffect(() => {
     api.getAllMission({

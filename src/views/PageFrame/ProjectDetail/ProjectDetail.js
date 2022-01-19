@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {  Redirect, Route, useNavigate, useParams, Outlet } from 'react-router-dom'
-import { Input, message, Modal, Spin} from 'antd';
+import { Input, message, Modal} from 'antd';
 import {
   CloseOutlined,
 } from '@ant-design/icons';
@@ -11,7 +11,6 @@ import style from './ProjectDetail.module.scss'
 import api from '@/utils/api';
 
 export default function ProjectDetail() {
-  const [spin, setSpin] = useState(true)
   const navigate = useNavigate()
   const {id, name} = useParams()
   const [notice, setNotice] = useState('')
@@ -19,7 +18,6 @@ export default function ProjectDetail() {
   const [noticeDisplay, setNoticeDisplay] = useState(true)
 
   function getNotice(){
-    setSpin(true)
     api.getNotice({
       projectID:id,
       token:sessionStorage.getItem('token')
@@ -28,10 +26,9 @@ export default function ProjectDetail() {
       if(res.content){
         setNotice(res.content)
       }
-      setSpin(false)
     })
     .catch(err=>{
-      message.error(err)
+      // message.error(err)
     })
   }
 
@@ -49,7 +46,7 @@ export default function ProjectDetail() {
     })
     .then(()=>{
       setNoticeDisplay(true)
-      getNotice()
+      setNotice(e.target.value)
     })
     .catch(err=>{
       message.error(err)
@@ -77,7 +74,6 @@ export default function ProjectDetail() {
       <div className={style.header}>
         <div className={style.left}>
           <div className={style.teamName}>{name}</div>
-          <Spin spinning={spin} >
             <div className={style.notice}
               onClick={function(){
                 setNoticeDisplay(false)
@@ -88,7 +84,6 @@ export default function ProjectDetail() {
                 notice===""?'填写项目公告':notice
               }
             </div>
-          </Spin>
           <Input 
             className={style.input}
             style={{display:`${noticeDisplay?'none':''}`}}

@@ -45,7 +45,6 @@ export default function Mine() {
   }, [])
 
   function commitSignatrue(event) {
-    console.log(event);
     api.writeMemberInfo({
       oakCode: sessionStorage.getItem('oakCode'),
       signature: event.target.value,
@@ -91,6 +90,9 @@ export default function Mine() {
               width={300}
               placeholder={'按下回车以确认'}
               value={signature===''?'':signature}
+              onChange={(e)=>{
+                setSignature(e.target.value)
+              }}
               onPressEnter={commitSignatrue}
               suffix={
                 <CloseOutlined
