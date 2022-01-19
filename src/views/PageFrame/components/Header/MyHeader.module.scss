@@ -18,8 +18,34 @@
       margin: 0 30px;
     }
   }
-  .avatar{
+  .avatarDropdown{
+    cursor: pointer;
+    margin-top: 10px;
     // position: absolute;
     // right: 50px;
+  }
+  .responseAvatar{
+    cursor: pointer;
+    margin-top: 10px;
+    position: absolute;
+    margin-top: -10000px;
+  }
+}
+
+@media only screen and (max-width:650px) {
+  .header{
+    .menu{
+      position: absolute;
+      margin-top: -10000px;
+    }
+    .avatarDropdown{
+      position: absolute;
+      margin-top: -10000px;
+    }
+    .responseAvatar{
+      margin-top: 0;
+      margin-left: auto;
+      position: static;
+    }
   }
 }

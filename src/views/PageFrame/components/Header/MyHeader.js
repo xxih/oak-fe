@@ -80,6 +80,26 @@ export default function MyHeader() {
     </Menu>
   )
 
+  const responseAvatarMenu = (
+    <Menu>
+      <Menu.Item onClick={goMinePage} key="goMinePage">
+        个人中心
+      </Menu.Item>
+      <Menu.Item onClick={goChangePassword} key="goChangePassword">
+        修改密码
+      </Menu.Item>
+      <Menu.Item onClick={switchMenu} key="/Project">
+        项目
+      </Menu.Item>
+      <Menu.Item onClick={switchMenu} key="/Team">
+        团队
+      </Menu.Item>
+      <Menu.Item onClick={logOut} key="logout">
+        退出登录
+      </Menu.Item>
+    </Menu>
+  )
+
   function goMinePage(){
     navigate('/Mine')
   }
@@ -123,11 +143,17 @@ export default function MyHeader() {
             我自己
           </Menu.Item>
         </Menu>
-        <Dropdown overlay={avatarMenu} className={style.avatar}>
+        <Dropdown overlay={avatarMenu} className={style.avatarDropdown}>
           <Avatar  size="large"
           //  icon={<UserOutlined />} 
             src={sessionStorage.getItem('avatar')}
-            style={{cursor:"pointer",marginTop:"10px"}}
+            className={style.avatar}
+          />
+        </Dropdown>
+        <Dropdown overlay={responseAvatarMenu} className={style.responseAvatar}>
+          <Avatar  size="large"
+          //  icon={<UserOutlined />} 
+            src={sessionStorage.getItem('avatar')}
           />
         </Dropdown>
       </Header>
