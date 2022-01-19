@@ -18,9 +18,8 @@ import Mine from './views/PageFrame/Mine/Mine.js'
 import ProjectDetail from './views/PageFrame/ProjectDetail/ProjectDetail';
 
 
-import ItemTable from './views/PageFrame/ProjectDetail/components/ItemTable';
-import ProgressPage from './views/PageFrame/ProjectDetail/components/ProgressPage';
-import Notice from './views/PageFrame/ProjectDetail/components/Notice';
+import ItemTable from './views/PageFrame/ProjectDetail/components/ItemTable/ItemTable';
+import ProgressPage from './views/PageFrame/ProjectDetail/components/ProgressPage/ProgressPage';
 
 export default function RouterIndex() {
   
@@ -38,7 +37,6 @@ export default function RouterIndex() {
           <Route path="/ProjectDetail/:id/:name" element={<ProjectDetail/>}>
             <Route path={'/ProjectDetail/:id/:name/list'} element={<ItemTable/>}></Route>
             <Route path={'/ProjectDetail/:id/:name/progress'} element={<ProgressPage/>}></Route>
-            <Route path={'/ProjectDetail/:id/:name/notice'} element={<Notice/>}></Route>
           </Route>
           <Route path='*' element={<NotFound/>}></Route>
         </Route>
